@@ -1,3 +1,3 @@
-Semantic Browser
+# Semantic Browser
 
 Contributors: Armen Inants, Ashot Pahlevanyan
