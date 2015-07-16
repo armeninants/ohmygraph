@@ -1,0 +1,70 @@
+#graphWrapper {
+	width: 800px;
+	height: 300px;
+	position: relative;
+	border: 1px lightgray solid;
+	margin: 10px;
+}
+
+.node {
+	position: absolute;
+	border: 1px black solid;
+}
+
+#div1 {
+	left: 400px;
+	top: 230px;
+	height: 50px;
+	width: 50px;
+}
+
+#div2 {
+	left: 210px; 
+	top: 100px;
+	height: 70px;
+	width: 70px;
+}
+
+#div3 {
+	left: 410px; 
+	top: 30px;
+	height: 60px;
+	width: 100px;
+}
+
+#nodeWrapper {
+	position: relative;
+	border: 1px solid grey;
+	background: #eee;
+}
+
+.node-box-tmp, .node-box {
+	display: inline-block;
+	position: absolute;
+	padding: 7px;
+	border: 1px solid grey;
+	white-space: nowrap;
+}
+
+.node-box-tmp {
+	visibility: hidden;
+}
+
+.node-box {
+	background: #fff;
+	color: #000;
+	border-radius: 5px;
+	box-shadow: 1px 1px 10px #999;
+	z-index: 150;
+
+	&:hover {
+		cursor: move;
+	}
+}
+
+.label {
+	fill: #fff;
+	background: #000;
+	z-index: 100;
+}
+
