@@ -1,0 +1,12 @@
+{
+	"vertices": ["Russia", "France", "Armenia", "United States of America", "Country", "Republic", "Federation"],
+	"edges": [
+		[0, 4, "rdf:type"],
+		[1, 5, "rdf:type"],
+		[2, 5, "rdf:type"],
+		[5, 4, "rdfs:subClassOf"],
+		[6, 4, "rdfs:subClassOf"],
+		[0, 6, "rdf:type"],
+		[3, 4, "rdf:type"]
+	]
+}

@@ -1,20 +1,14 @@
 var semanticControllers = angular.module('semanticControllers', []);
 
-semanticControllers.controller('GraphCtrl', function ($scope) {
+semanticControllers.controller('GraphCtrl', function ($scope, $http) {
 	'use strict';
-	
-	$scope.graph = {
-		vertices: ['Russia', 'France', 'Armenia', 'United <select><option>States</option><option>Strokes</option></select> of America', 'Country', 'Republic', 'Federation'],
-		edges: [
-			[0, 4, 'rdf:type'],
-			[1, 5, 'rdf:type'],
-			[2, 5, 'rdf:type'],
-			[5, 4, 'rdfs:subClassOf'],
-			[6, 4, 'rdfs:subClassOf'],
-			[0, 6, 'rdf:type'],
-			[3, 4, 'rdf:type']
-		]
-	};
+
+
+	$http.get('data/graph-demo.json')
+		.then(function(res){
+			$scope.graph = res.data;
+			$scope.visualizeGraph();
+		});
 
 
 	$scope.width = 900;
@@ -77,8 +71,7 @@ semanticControllers.controller('GraphCtrl', function ($scope) {
 		$.each(graph.vertices, function(i, vertice) {
 			var node_ = $scope.getBoxDim(vertice);
 			node_.label = vertice;
-			node_.x = $scope.width/2;
-			node_.y = $scope.height/2;
+			// node_.x = $scope.width/
 			node_.index = i;
 			nodes.push(node_);
 		});
@@ -109,7 +102,8 @@ semanticControllers.controller('GraphCtrl', function ($scope) {
 		return $scope.connections = connections;
 	};
 
-	$scope.renderNodes = function() {
+	$scope.renderGraph = function() {
+		// Render nodes
 		$.each($scope.nodes, function(i, node) {
 			$('<div class="node-box">')
 				.attr('id', 'node' + i)
@@ -120,17 +114,14 @@ semanticControllers.controller('GraphCtrl', function ($scope) {
 				.html(node.label)
 				.appendTo($scope.$nodeWrapper);
 		});
-	};
 
-	$scope.renderLinks = function() {
-
+		// Rended links
 		jsPlumb.ready(function () {
 			var connections = $scope.connections,
 				instance = jsPlumb.getInstance({
 					Connector: "StateMachine",
 					PaintStyle: { lineWidth: 2, strokeStyle: "#444" },
 					Endpoint: [ "Blank", {} ],
-					// EndpointStyle: { fillStyle: "#444" },
 					Container: "nodeWrapper"
 				});
 
@@ -142,7 +133,7 @@ semanticControllers.controller('GraphCtrl', function ($scope) {
 			instance.batch(function () {
 				for (var i = 0; i < connections.length; i++) {
 					instance.connect({
-						source: edges[connections[i].source],  // just pass in the current node in the selector for source
+						source: edges[connections[i].source],
 						target: edges[connections[i].target],
 						anchors: [
 							[ "Perimeter", { shape: 'Rectangle', rotation: 0 }],
@@ -155,19 +146,13 @@ semanticControllers.controller('GraphCtrl', function ($scope) {
 					});
 				}
 			});
-
-			jsPlumb.fire("jsPlumbDemoLoaded", instance);
 		});
 
 	};
 
 	$scope.visualizeGraph = function() {
 		$scope.prepareGraph($scope.graph);
-		$scope.renderNodes();
-		$scope.renderLinks();
+		$scope.renderGraph();
 	};
-
-	$scope.visualizeGraph();
-
 
 });
