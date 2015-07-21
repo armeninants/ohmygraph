@@ -1,0 +1,73 @@
+/*===========================================
+
+	baseElement.scss
+	* css style for base Elements
+
+=============================================*/
+
+*,
+*:before,
+*:after {
+ @extend %boxSizingBorderBox;
+}
+
+*, *:focus {
+	outline: none;
+}
+
+body {
+	position: relative;
+	padding-top: 74px;
+	font-family: "Open Sans";
+	font-size: 14px;
+	background-color: #fff;
+	overflow-x: hidden;
+	.container {
+		margin: 0 auto;
+	}
+	&.withSubMenu {
+		padding-top: 129px;
+	}
+	&.loginPage {
+		padding-top: 0;
+	}
+}
+
+html {
+	overflow-y: scroll;
+}
+
+.strong {
+	@extend %fontStrong;
+}
+
+.clear {
+    clear: both;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: " ";
+}
+.clearfix:after {
+  clear: both;
+}
+
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+
+@media (max-width: 767px) {
+	body {
+		padding-top: 0;
+		&.withSubMenu {
+			padding-top: 0;
+		}
+		padding-bottom: 65px;
+	}
+}
+

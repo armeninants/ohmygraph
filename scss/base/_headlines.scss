@@ -1,0 +1,61 @@
+/*
+
+	headlines.scss
+	* CSS Headlines style
+
+*/
+
+$colorWhite: #fff; //white
+
+/* headline for content */
+h1 {
+	// font-family: 'Raleway', sans-serif;
+	// font-size: 80px;
+	// font-size: 8.0rem;
+	// line-height: 88px;
+	// font-weight: normal;
+	// color: $colorWhite;
+}
+
+/* headline for  Recent Posts, Recent News */
+h2 {
+	// font-family: 'Raleway', sans-serif;
+	// font-size: 35px;
+	// font-size: 3.5rem;
+	// line-height: 40px;
+	// padding-bottom: 10px;
+	// font-weight: 500;
+	// color: $colorWhite;
+}
+
+/* headlines for article headings in Recent Posts, Recent News */
+h3 {
+	// font-family: 'Open Sans', sans-serif;
+	// font-size: 20px;
+	// font-size: 2.0rem;
+	// line-height: 32px;
+	// font-weight: 500;
+	// color: $colorWhite;
+}
+
+/* headlines for  "I am a new customer"*/
+h4 {
+	// font-size: 12px;
+	// font-size: 1.2em;
+	// line-height: 14px;
+}
+
+/* headlines for  Date Added, Displaying Items 1 to N (...)*/
+h5 {
+	// font-size: 11px;
+	// font-size: 1.1rem;
+	// line-height: 13px;
+}
+
+
+/* headlines for  */
+h6 {
+	// font-size: 8px;
+	// font-size: 0.8rem;
+	// line-height: 10px;
+}

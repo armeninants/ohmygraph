@@ -1,31 +1,356 @@
+/* Style file for site======================
+============================================*/
+/* Font-awesome scss styles======================
+============================================*/
+/* Bootstrap scss styles======================
+============================================*/
+/* Base elements styles====================
+===========================================*/
+/*
+
+    reset.css
+    * Resets default browser CSS.
+
+*/
+html {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, code,
+del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, dialog, figure, footer, header,
+hgroup, nav, section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* This helps to make newer HTML5 elements behave like DIVs in older browers */
+article, aside, details, figcaption, figure, dialog,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* Line-height should always be unitless! */
+body {
+  line-height: 1.5;
+  background: white;
+}
+
+/* Tables still need 'cellspacing="0"' in the markup. */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* float:none prevents the span-x classes from breaking table-cell display */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  float: none !important;
+}
+
+table, th, td {
+  vertical-align: middle;
+}
+
+/* Remove possible quote marks (") from <q>, <blockquote>. */
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+}
+
+blockquote, q {
+  quotes: "" "";
+}
+
+/* Remove annoying border on linked images. */
+a img {
+  border: none;
+}
+
+/* Remember to define your own focus styles! */
+:focus {
+  outline: 0;
+}
+
+/*
+@mixin calcW($percent, $offset) {
+  width: calc($percent - $offset);
+  width: -webkit-calc($percent - $offset);
+  width: expression($percent - $offset);
+  width: -webkit-calc(100% - 299px); 
+      width: calc(100% - 299px); 
+      width: expression(100% - 299px);
+}
+@mixin calcH($percent, $offset) {
+  height: -webkit-calc($percent - $offset);
+  height: expression($percent - $offset);
+  height: calc($percent - $offset);
+}
+*/
+/*===========================================
+
+	baseElement.scss
+	* css style for base Elements
+
+=============================================*/
+*, *:focus {
+  outline: none;
+}
+
+body {
+  position: relative;
+  padding-top: 74px;
+  font-family: "Open Sans";
+  font-size: 14px;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+body .container {
+  margin: 0 auto;
+}
+body.withSubMenu {
+  padding-top: 129px;
+}
+body.loginPage {
+  padding-top: 0;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+.clear {
+  clear: both;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: " ";
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 0;
+    padding-bottom: 65px;
+  }
+  body.withSubMenu {
+    padding-top: 0;
+  }
+}
+/*
+
+	headlines.scss
+	* CSS Headlines style
+
+*/
+/* headline for content */
+/* headline for  Recent Posts, Recent News */
+/* headlines for article headings in Recent Posts, Recent News */
+/* headlines for  "I am a new customer"*/
+/* headlines for  Date Added, Displaying Items 1 to N (...)*/
+/* headlines for  */
+/* FONT Definitions =================================
+=====================================================*/
+/* PTSans Bold font for any text ++++++++++++++++++++++++++++++++++++++*/
+@font-face {
+  font-family: 'Yanone_font';
+  src: url("fonts/PTSB-webfont.eot");
+  src: url("fonts/PTSB-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/PTSB-webfont.ttf") format("truetype"), url("fonts/PTSB-webfont.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* PTSans Bold font for any text ++++++++++++++++++++++++++++++++++++++*/
+@font-face {
+  font-family: 'PTSB_font';
+  src: url("fonts/PTSB-webfont.eot");
+  src: url("fonts/PTSB-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/PTSB-webfont.ttf") format("truetype"), url("fonts/PTSB-webfont.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* MyriadPro Semi-Condensed font for any text */
+@font-face {
+  font-family: 'MPSC_font';
+  src: url("fonts/MPSC-webfont.eot");
+  src: url("fonts/MPSC-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPSC-webfont.ttf") format("truetype"), url("fonts/MPSC-webfont.svg#MPSC_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MPSC_fontie';
+  src: url("fonts/MPSC-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: 'MPSC_fontAlt';
+  src: url("fonts/MPSC-webfont.eot");
+  src: url("fonts/MPSC-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPSC-webfont.woff") format("woff"), url("fonts/MPSC-webfont.ttf") format("truetype"), url("fonts/MPSC-webfont.svg#MPSC_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* MyriadPro Light Semi-Condensed font for any text */
+@font-face {
+  font-family: 'MPLSC_font';
+  src: url("fonts/MPLSC-webfont.eot");
+  src: url("fonts/MPLSC-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPLSC-webfont.woff") format("woff"), url("fonts/MPLSC-webfont.ttf") format("truetype"), url("fonts/MPLSC-webfont.svg#MPLSC_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* MyriadPro Regular font for any text ++++++++++++++++++++*/
+@font-face {
+  font-family: 'MPR_font';
+  src: url("fonts/MPR-webfont.eot");
+  src: url("fonts/MPR-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPR-webfont.ttf") format("truetype"), url("fonts/MPR-webfont.svg#MPR_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MPR_fontie';
+  src: url("fonts/MPR-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: 'MPR_fontAlt';
+  src: url("fonts/MPR-webfont.eot");
+  src: url("fonts/MPR-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPR-webfont.woff") format("woff"), url("fonts/MPR-webfont.ttf") format("truetype"), url("fonts/MPR-webfont.svg#MPR_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* MyriadPro Light font for any text */
+@font-face {
+  font-family: 'MPL_font';
+  src: url("fonts/MPL-webfont.eot");
+  src: url("fonts/MPL-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPL-webfont.woff") format("woff"), url("fonts/MPL-webfont.ttf") format("truetype"), url("fonts/MPL-webfont.svg#MPL_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* MyriadPro Bold Semi-Condensed font for any text */
+@font-face {
+  font-family: 'MPBSC_font';
+  src: url("fonts/MPBSC-webfont.eot");
+  src: url("fonts/MPBSC-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPBSC-webfont.ttf") format("truetype"), url("fonts/MPBSC-webfont.svg#MPBSC_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MPBSC_fontie';
+  src: url("fonts/MPBSC-webfont.woff") format("woff");
+}
+/* MyriadPro Semi Bold font for any text */
+@font-face {
+  font-family: 'MPSB_font';
+  src: url("fonts/MPSB-webfont.eot");
+  src: url("fonts/MPSB-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPSB-webfont.ttf") format("truetype"), url("fonts/MPSB-webfont.svg#MPSB_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MPSB_fontie';
+  src: url("fonts/MPSB-webfont.woff") format("woff");
+}
+/* MyriadPro Semi Bold Semi-Condensed font for any text */
+@font-face {
+  font-family: 'MPSBSC_font';
+  src: url("fonts/MPSBSC-webfont.eot");
+  src: url("fonts/MPSBSC-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MPSBSC-webfont.ttf") format("truetype"), url("fonts/MPSBSC-webfont.svg#MPSBSC_font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MPSBSC_fontie';
+  src: url("fonts/MPSBSC-webfont.woff") format("woff");
+}
+/*==========================================*/
+/*Styles for changable elements, Placeholders
+============================================*/
+/* placeholders for changable elements 
+=====================================*/
+/* placeholders for repeated elements 
+=====================================*/
+.strong {
+  /* font weight for any text */
+  font-weight: bold;
+}
+
+*,
+*:before,
+*:after {
+  /* box sizing for all element in pages */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/*==========================================*/
+/*Styles for MAIN page elements=============
+============================================*/
+/* Body style for site =====================
+============================================*/
+/* style for header : inports======================
+===================================================*/
+/* Style for content ==============================
+===================================================*/
+/* style for preliminary setup: should be changed later===============
+===============================================*/
 #nodeWrapper {
   position: relative;
   border: 1px solid grey;
   background: #eee;
-  overflow: scroll; }
+  overflow: scroll;
+}
 
 .node-box-tmp, .node-box {
   display: inline-block;
   position: absolute;
   padding: 7px;
   border: 1px solid grey;
-  white-space: nowrap; }
+  white-space: nowrap;
+}
 
 .node-box-tmp {
-  visibility: hidden; }
+  visibility: hidden;
+}
 
 .node-box {
   background: #fff;
   color: #000;
   border-radius: 5px;
   box-shadow: 1px 1px 10px #999;
-  z-index: 150; }
-  .node-box:hover {
-    cursor: move; }
+  z-index: 150;
+}
+.node-box:hover {
+  cursor: move;
+}
 
 .label {
   fill: #fff;
   background: #000;
-  z-index: 100; }
+  z-index: 100;
+}
+
+/* Style for footer ==============================
+===================================================*/
+/*style for different pages ===================
+===============================================*/
 
 /*# sourceMappingURL=style.css.map */

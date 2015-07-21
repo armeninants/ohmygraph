@@ -1,0 +1,14 @@
+node_modules/
+selenium/
+testapp/inbrowsertest/
+website/bower_components/
+website/build/
+website/docgen/build/
+
+chromedriver.log
+libpeerconnection.log
+changes.sh
+xmloutput*
+npm-debug.log
+
+*.swp

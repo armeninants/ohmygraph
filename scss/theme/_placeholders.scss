@@ -1,0 +1,349 @@
+/* placeholders for changable elements 
+=====================================*/
+/////////Website Colors//////
+//General colors
+$colorWhite: #fff;		//white
+$colorBlack: #000;		//black
+
+//Changable colors
+$colorHeadline: #75a300;				//117, 163, 0	// for headline, callPhone, mainSlider active indicator, 
+									//register button background, Beispiele part border, headline and bachground
+$colorTextGrey: #606060; 			//96 96 96,		// for paragraph text in info block
+$colorMain: #0074a2; 				//0,116,162		// for main color
+$colorInfo: #e03f00; 				//224,63, 0		// for more info button background
+$colorBgGrey: #eeeeec; 				//238,238,236 	// for background for content blocks
+$colorBorder: #a6a6a5;				//166, 166, 165 // for border color for footer horiz line
+
+$colorSubNavText: #adadad;  		//173,173,173,	// for subnavigation text, 
+$colorBorderSubNav: #e3e3e3;  		//227,227,227,	// for  subnavigation border
+$colorActiveSubNav: #2d2d2d; 		//45 45 45,		// for subnavigation active item 45
+$colorBorderNav: #338167;			// 51,129,183	// for navbar border bottom
+
+/////////Font Colors//////////////////
+%fontColorWhite {
+	color: $colorWhite;
+}
+
+%fontColorBlack {
+	color: $colorBlack;
+}
+
+%fontColorMain {
+	color: $colorMain;
+}
+
+%fontColorHeadline {
+	color: $colorHeadline;
+}
+
+%fontColor1 {
+	color: $colorWhite;
+}
+
+%fontColor2 {
+	color: $colorSubNavText;
+}
+
+%fontColor3 {
+	color: $colorActiveSubNav;
+}
+
+%fontColor9 {
+	color: $colorTextGrey;
+}
+
+/////////Background Colors//////////////////
+
+%bgColorWhite {
+	background-color: $colorWhite;
+}
+
+%bgColorMain {
+	background-color: $colorMain;
+}
+
+%bgColorHeadline {
+	background-color: $colorHeadline;
+}
+
+%bgColorInfo {
+	background-color: $colorInfo;
+}
+%bgColorGreyToTop {
+	background-color: $colorTextGrey;
+}
+
+%bgColorGrey {
+	background-color: $colorBgGrey;
+}
+
+//////////Border Colors ////////
+
+%borderColor1 {
+	border-color: $colorBorderNav;
+}
+
+%borderColor2 {
+	border-color: $colorBorderSubNav;
+}
+
+///////Transitions //////////
+
+%transitionAll {
+	-moz-transition: all ease-in-out 0.5s;
+	-o-transition: all ease-in-out 0.5s;
+	-webkit-transition: all ease-in-out 0.5s;
+	transition: all ease-in-out 0.5s;
+}
+
+%transitionOpacity1 {
+	-moz-transition: opacity ease-in-out 2s;
+	-o-transition: opacity ease-in-out 2s;
+	-webkit-transition: opacity ease-in-out 2s;
+	transition: opacity ease-in-out 2s;
+}
+
+%transitionOpacity2 {
+	-moz-transition: opacity ease-in-out 0.6s;
+	-o-transition: opacity ease-in-out 0.6s;
+	-webkit-transition: opacity ease-in-out 0.6s;
+	transition: opacity ease-in-out 0.6s;
+}
+%transitionOpacity3 {
+	-moz-transition: opacity ease-in-out 4s;
+	-o-transition: opacity ease-in-out 4s;
+	-webkit-transition: opacity ease-in-out 4s;
+	transition: opacity ease-in-out 4s;
+}
+
+/* placeholders for repeated elements 
+=====================================*/
+
+%fontOpenSans {
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+%fontStrong {
+	/* font weight for any text */
+	font-weight: bold;
+}
+
+%fontNormal {
+	/* font weight for any text */
+	font-weight: normal;
+}
+
+%textTransformUpper {
+	/* text transform for any text*/
+	text-transform: uppercase;
+}
+
+%textTransformLower {
+	/* text transform for any text*/
+	text-transform: lowercase;
+}
+
+%overflowScroll {
+	/* overflow scroll for any box */
+	overflow: scroll;
+}
+%overflowScrollY {
+	/* overflow scroll for any box */
+	overflow-y: scroll;
+}
+%overflowScrollX {
+	/* overflow scroll for any box */
+	overflow-x: scroll;
+}
+
+%overflowHidden {
+	/* overflow hidden for any box */
+	overflow: hidden;
+}
+
+%textDecorNone {
+	/* text decoration for any text */
+	text-decoration: none;
+}
+	
+%textDecorUnderline {
+	/* text decoration for any text */
+	text-decoration: underline;
+}
+
+%textAlignLeft {
+	/* text decoration for any text */
+	text-align: left;
+}
+
+%textAlignRight {
+	/* text decoration for any text */
+	text-align: right;
+}
+
+%listStyleNone {
+	/* list style for any list */
+	list-style: none;
+}
+
+%floatLeft {
+	/* float for any block */
+	float: left;
+}
+
+%floatRight {
+	/* float for any block */
+	float: right;
+}
+
+%borderStyleSolid {
+	/* border style for any element */
+	border-style: solid;
+}
+
+%borderNone {
+	/* border for any element */
+	border: none;
+}
+
+%borderInset {
+	/* border for any element */
+	border: inset;
+}
+
+%borderOutset {
+	/* border for any element */
+	border: outset;
+}
+
+%borderSolid {
+	/* border for any element */
+	border: solid;
+}
+
+%borderDashed {
+	/* border for any element */
+	border: dashed;
+}
+
+%borderDotted {
+	/* border for any element */
+	border: dotted;
+}
+
+%positionAbsolute {
+	/* position for any element */
+	position: absolute;
+}
+
+%positionRelative {
+	/* position for any element */
+	position: relative;
+}
+
+%positionCenter {
+ 	/* position center for any element*/
+	margin: 0 auto;
+}
+
+%boxSizingBorderBox {
+ /* box sizing for all element in pages */
+ 	-webkit-box-sizing: border-box;
+ 	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+%bgPosNoRepeat {
+	background-position: center center;
+	background-repeat: no-repeat no-repeat;
+}
+
+%bgColorTransparent {
+	/* background color transparent*/
+	background-color: transparent; 
+}
+
+%bgImageNone {
+	/* background image none*/
+	background-image:  none; 
+}
+
+%bgNone {
+	/* background image none*/
+	background:  none; 
+}
+
+%bgColorNone {
+	/* background image none*/
+	background-color: none; 
+}
+
+%cursorPointer {
+	cursor: pointer;
+}
+
+%displayInlineBlock {
+	/*display style for any element*/
+	display: inline-block;
+}
+
+%displayBlock {
+	/*display style for any element*/
+	display: block;
+}
+
+%displayNone {
+	/*display style for any element*/
+	display: none;
+}
+
+%verticalAlignTop {
+	/* vertical align for any element*/
+	vertical-align: top;
+}
+%verticalAlignMiddle {
+	/* vertical align for any element*/
+	vertical-align: middle;
+}
+%verticalAlignSub {
+	/* vertical align for any element*/
+	vertical-align: sub;
+}
+%verticalAlignTop {
+	/* vertical align for any element*/
+	vertical-align: top;
+}
+%vertAlignTextTop {
+	/* vertical align for any element*/
+	vertical-align: text-top;
+}
+%vertAlignBaseline {
+	/* vertical align for any element*/
+	vertical-align: baseline;
+}
+
+%textAlignCenter {
+	/* text align for any element*/
+	text-align: center;
+}
+%textAlignLeft {
+	/* text align for any element*/
+	text-align: left;
+}
+%textAlignRight {
+	/* text align for any element*/
+	text-align: right
+}
+
+%visibilityHidden {
+	visibility: hidden;
+}
+
+%visibilityVisible {
+	visibility: visible;
+}
+
+%outlineNone {
+	/* outline for any element*/
+	outline: none;
+}

@@ -1,0 +1,40 @@
+/* style for preliminary setup: should be changed later===============
+===============================================*/
+
+#nodeWrapper {
+	position: relative;
+	border: 1px solid grey;
+	background: #eee;
+	overflow: scroll;
+}
+
+.node-box-tmp, .node-box {
+	display: inline-block;
+	position: absolute;
+	padding: 7px;
+	border: 1px solid grey;
+	white-space: nowrap;
+}
+
+.node-box-tmp {
+	visibility: hidden;
+}
+
+.node-box {
+	background: #fff;
+	color: #000;
+	border-radius: 5px;
+	box-shadow: 1px 1px 10px #999;
+	z-index: 150;
+
+	&:hover {
+		cursor: move;
+	}
+}
+
+.label {
+	fill: #fff;
+	background: #000;
+	z-index: 100;
+}
+

@@ -1,0 +1,33 @@
+/* Style file for site======================
+============================================*/
+/* Font-awesome scss styles======================
+============================================*/
+//@import "font-awesome/font-awesome";
+
+/* Bootstrap scss styles======================
+============================================*/
+//@import "bootstrapscss/bootstrap";
+
+/* Base elements styles====================
+===========================================*/
+@import "base/reset";
+@import "base/mixins";
+@import "base/baseElements";
+@import "base/headlines";
+@import "base/fonts";
+/*==========================================*/
+
+/*Styles for changable elements, Placeholders
+============================================*/
+
+@import "theme/placeholders";
+
+/*==========================================*/
+
+/*Styles for MAIN page elements=============
+============================================*/
+
+@import "partials/body";
+
+
+
