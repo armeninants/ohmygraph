@@ -1,0 +1,42 @@
+[
+	{
+		"url": "http://dbpedia.org/sparql",
+		"name": "DBpedia"
+	},
+	{
+		"url": "http://dbpedia-live.openlinksw.com/sparql/",
+		"name": "DBpedia-live"
+	},
+	{
+		"url": "https://query.wikidata.org/bigdata/namespace/wdq/sparql",
+		"name": "Wikidata"
+	},
+	{
+		"url": "http://www.semantic-systems-biology.org/biogateway/endpoint",
+		"name": "BioGateway"
+	},
+	{
+		"url": "http://lod.openlinksw.com/sparql"
+	},
+	{
+		"url": "http://lodstats.aksw.org/sparql",
+		"name": "LODStats The Data Web Census"
+	},
+	{
+		"url": "http://wordnet.rkbexplorer.com/sparql/",
+		"name": "WordNet"
+	},
+	{
+		"url": "http://linkedopencommerce.com/sparql",
+		"name": "Slow endpoint"
+	},
+	{
+		"url": "http://uriburner.com/sparql"
+	},
+	{
+		"url": "http://sparql.sindice.com/"
+	},
+	{
+		"url": "http://linkeddata.uriburner.com/sparql/"
+	}
+]

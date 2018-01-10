@@ -1,0 +1,16 @@
+.ai-notify-container {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 250px;
+  margin-left: -125px;
+  z-index: 9999;
+  padding-top: 6px;
+}
+
+.ai-notify-container > * {
+  padding-left: 6px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 2px;
+}

@@ -1,0 +1,21 @@
+[
+	{
+		"name": "Show some concepts",
+		"sparql": "SELECT DISTINCT ?Concept WHERE {[] a ?Concept} LIMIT 100"
+	},
+
+	{
+		"name": "Show some triples",
+		"sparql": "SELECT * WHERE {?s ?p ?o} LIMIT 100"
+	},
+
+	{
+		"name": "Show some properties",
+		"sparql": "SELECT DISTINCT ?Property WHERE {[] ?Property []} LIMIT 100"
+	},
+
+	{
+		"name": "Show labeled entities",
+		"sparql": "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nSELECT * WHERE {?Resource rdfs:label ?Label} LIMIT 100"
+	}
+]

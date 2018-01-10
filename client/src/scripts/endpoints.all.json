@@ -1,0 +1,91 @@
+[
+	{
+		"url": "http://dbpedia.org/sparql",
+		"name": "DBpedia"
+	},
+	{
+		"url": "http://dbpedia-live.openlinksw.com/sparql/",
+		"name": "DBpedia-live"
+	},
+	{
+		"url": "https://query.wikidata.org/bigdata/namespace/wdq/sparql",
+		"name": "Wikidata"
+	},
+	{
+		"url": "http://www.semantic-systems-biology.org/biogateway/endpoint",
+		"name": "BioGateway"
+	},
+	{
+		"url": "http://dbtune.org/bbc/peel/sparql",
+		"name": "BBC John Peel sessions from DBTune"
+	},
+	{
+		"url": "http://dbtune.org/bbc/playcount/sparql",
+		"name": "BBC playcount data from DBTune"
+	},
+	{
+		"url": "http://www4.wiwiss.fu-berlin.de/dailymed/sparql",
+		"name": "DailyMed"
+	},
+	{
+		"url": "http://semantic.data.gov/sparql",
+		"name": "data.gov"
+	},
+	{
+		"url": "http://data.gov.uk/sparql",
+		"name": "data.gov.uk"
+	},
+	{
+		"url": "http://www4.wiwiss.fu-berlin.de/dblp/sparql",
+		"name": "DBLP Bibliography Database"
+	},
+	{
+		"url": "http://www4.wiwiss.fu-berlin.de/diseasome/sparql",
+		"name": "Diseasome"
+	},
+	{
+		"url": "http://doapspace.org/sparql",
+		"name": "DoapSpace"
+	},
+	{
+		"url": "http://www4.wiwiss.fu-berlin.de/drugbank/sparql",
+		"name": "DrugBank"
+	},
+	{
+		"url": "http://www.factforge.net/sparql",
+		"name": "FactForge"
+	},
+	{
+		"url": "http://data.linkedmdb.org/sparql",
+		"name": "Linked Movie Data Base"
+	},
+	{
+		"url": "http://dbtune.org/magnatune/sparql",
+		"name": "Magnatune from DBTune"
+	},
+	{
+		"url": "http://dbtune.org/musicbrainz/sparql",
+		"name": "Musicbrainz from DBTune"
+	},
+	{
+		"url": "http://www4.wiwiss.fu-berlin.de/gutendata/sparql",
+		"name": "Project Gutenberg Metadata"
+	},
+	{
+		"url": "http://www4.wiwiss.fu-berlin.de/factbook/sparql",
+		"name": "World Factbook"
+	},
+	{
+		"url": "http://api.talis.com/stores/periodicals/services/sparql",
+		"name": "Linked Periodicals"
+	},
+	{
+		"url": "http://uriburner.com/sparql"
+	},
+	{
+		"url": "http://lod.openlinksw.com/sparql"
+	},
+	{
+		"url": "http://linkedopencommerce.com/sparql"
+	}
+]
