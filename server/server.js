@@ -2,13 +2,11 @@
 
 /**
  * server.js
- * Executes the whole website
+ * Web server application
  * @author Armen Inants <armen@inants.com>
  */
 
 'use strict';
-
-const DEF_PORT = 8031;
 
 const http = require('http');
 const path = require('path');
@@ -18,21 +16,22 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const rp = require('request-promise');
-const dotenv = require('dotenv');
-dotenv.load();
+// const dotenv = require('dotenv').config({path: '../'});
+// dotenv.load();
 
+const CLIENT_PUBLIC_DIR = path.join(__dirname, '/../client/dist');
 const devMode = process.env.SB_ENV === 'development';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const port = DEF_PORT;
+const port = process.env.SB_PORT || 8031;
 app.set('port', port);
 
 
 if (!devMode) {
-  app.use(express.static(path.join(__dirname, '/client/dist')));
+  app.use(express.static(CLIENT_PUBLIC_DIR));
 }
 
 // Proxy
@@ -85,7 +84,7 @@ if (devMode) {
   app.get('/*', require('express-http-proxy')('localhost:8080'));
 } else {
   app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+    res.sendFile(path.join(CLIENT_PUBLIC_DIR, '/index.html'));
   });
 }
 

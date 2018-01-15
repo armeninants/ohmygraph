@@ -1,9 +1,9 @@
 {
-  "name": "semantic-browser-client",
+  "name": "ai-semantic-browser-client",
   "version": "1.0.0",
-  "description": "Browse any SPARQL endpoint",
-  "author": "Armen Inants <armen.inants@getitllc.com>",
-  "private": true,
+  "description": "A free tool to browse and query any SPARQL endpoint",
+  "author": "Armen Inants <armen@inants.com>",
+  "license": "Apache-2.0",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
