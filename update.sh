@@ -24,5 +24,3 @@ npm install
 
 cd "$DIR/server"
 npm install
-
-./run.sh

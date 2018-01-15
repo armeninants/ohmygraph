@@ -2,7 +2,7 @@
   <div class="container-fluid footer">
     <div class="row">
         <div class="col-xs-8">
-          This work is licensed under <a href="https://raw.githubusercontent.com/armeninants/semantic-browser/master/LICENSE">Apache License 2.0</a>.
+          This work is licensed under <a href="https://raw.githubusercontent.com/armeninants/ai-semantic-browser/master/LICENSE">Apache License 2.0</a>.
         </div>
         <div class="col-xs-4 my-footer-menu">
             <ul class="list-inline">
