@@ -19,24 +19,29 @@ If you are going to run the application in development mode, then install `webpa
 npm install -g webpack-dev-server
 ```
 
-## How to Install
+## Installation
 
 ``` bash
-git clone https://github.com/armeninants/semantic-browser.git
-cd semantic-browser/
+git clone https://github.com/armeninants/ai-semantic-browser.git
+cd ai-semantic-browser/
 chmod gu+x ./*.sh
 npm run update
 ```
 
-## Run
-``` bash
-./run.sh
-```
-Open http://localhost:8031 in your browser.
+## How to run
+To choose between development and production modes, set the SB_ENV environment variable in the `/.env` file to a respective value.
 
-## Run in development mode
+Run `npm run start` to start.
+The application is accessible now at [http://localhost:8031](http://localhost:8031).
+You can change the port by setting the SB_PORT environment variable.
+
+To stop, run `npm run stop`.
+
+## Pulling updates from the repo
+
 ``` bash
-./run.sh dev
+npm run update
+npm run start
 ```
 
 
