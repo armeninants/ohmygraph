@@ -1,7 +1,7 @@
 (function($, window) {
 
   $.notify = function(msg, type) {
-    const DELAY_MS = 2000;
+    const DELAY_MS = 3000;
     const classMap = {
       error: 'danger',
       success: 'success',

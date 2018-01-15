@@ -1,101 +1,104 @@
 <template>
-  <div class="container-fluid my-resource-browser">
-    <div class="form-horizontal my-resource-interface">
-      <div class="form-group">
+  <div class="my-resource-browser">
+    <div class="container-fluid">
+      <div class="row my-resource-interface">
         <div class="col-sm-6">
-
-          <div class="input-group margin-bottom-sm">
-            <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-            <input
-              type="text"
-              class="form-control my-input-lookup"
-              placeholder="Label lookup"
-              disabled
-            >
+          <div class="form-group">
+            <label-search
+              :endpoint="endpoint"
+              @selected="resourceSelectHandler"
+              @select:lang="val => {lang = val}"
+            ></label-search>
           </div>
-
         </div>
-        <div class="col-sm-3">
-          <flexi-input
-            :model.sync="endpoint"
-            :data-source="endpoints"
-            key-token="url"
-            label-token="name"
-            placeholder="SPARQL endpoint"
-          ></flexi-input>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <endpoint-selector
+              :model.sync="endpoint"
+              key-token="url"
+              label-token="name"
+              placeholder="SPARQL endpoint"
+            ></endpoint-selector>
+          </div>
         </div>
       </div>
+      <loading-bar class="row" :loading="isLoading"></loading-bar>
     </div>
 
-    <loading-bar :loading="isLoading"></loading-bar>
-
-    <h3
-      v-if="resource"
-      class="my-resource-header"
-    >
-      <span class="prefix">Resource:</span> {{ resource }}
-    </h3>
-    <div class="table-responsive" v-if="showResults">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Property</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(entry, i) in subjectOf"
-            :key="'subj-' + entry[0]"
-          >
-            <td>
-              <rdf-resource
-                :model="{type: 'uri', value: entry[0]}"
-                :endpoint="endpoint"
-              ></rdf-resource>
-            </td>
-            <td>
-              <ul class="my-resource-list">
-                <li
-                  v-for="(obj, j) in entry[1]"
-                  :key="j"
-                >
-                  <rdf-resource
-                    :model="obj"
-                    :endpoint="endpoint"
-                  ></rdf-resource>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr
-            v-for="(entry, i) in objectOf"
-            :key="'obj-' + entry[0]"
-          >
-            <td>
-              is
-              <rdf-resource
-                :model="{type: 'uri', value: entry[0]}"
-                :endpoint="endpoint"
-              ></rdf-resource>
-              of
-            </td>
-            <td>
-              <ul class="my-resource-list">
-                <li
-                  v-for="(obj, j) in entry[1]"
-                  :key="j"
-                >
-                  <rdf-resource
-                    :model="obj"
-                    :endpoint="endpoint"
-                  ></rdf-resource>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="container">
+      <div
+        v-if="resource"
+        class="my-resource-header"
+      >
+        <span class="prefix">Resource:</span>
+        <rdf-resource
+          :model="{type: 'uri', value: resource}"
+          :endpoint="endpoint"
+        ></rdf-resource>
+      </div>
+      <div class="table-responsive" v-if="showResults">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(entry, i) in subjectOf"
+              :key="'subj-' + i + entry[0]"
+            >
+              <td>
+                <rdf-resource
+                  :model="{type: 'uri', value: entry[0]}"
+                  :endpoint="endpoint"
+                ></rdf-resource>
+              </td>
+              <td>
+                <ul class="my-resource-list">
+                  <li
+                    v-for="(obj, j) in entry[1]"
+                    :key="j + '-' + obj.value"
+                  >
+                    <rdf-resource
+                      :model="obj"
+                      :endpoint="endpoint"
+                    ></rdf-resource>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr
+              v-for="(entry, i) in objectOf"
+              :key="'obj-' + i + entry[0]"
+            >
+              <td>
+                is
+                <rdf-resource
+                  :model="{type: 'uri', value: entry[0]}"
+                  :endpoint="endpoint"
+                ></rdf-resource>
+                of
+              </td>
+              <td>
+                <ul class="my-resource-list">
+                  <li
+                    v-for="(obj, j) in entry[1]"
+                    :key="j + '-' + obj.value"
+                  >
+                    <rdf-resource
+                      :model="obj"
+                      :endpoint="endpoint"
+                    ></rdf-resource>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div v-if="resource && !isLoading && !showResults">Description is empty.</div>
     </div>
   </div>
 </template>
@@ -104,29 +107,33 @@
 <script>
 /**
  * @vue
+ * @author Armen Inants <armen@inants.com>
  */
-import ENDPOINTS from '@/scripts/endpoints.json'
 import LoadingBar from '@/components/LoadingBar'
-import FlexiInput from '@/components/FlexiInput'
+import EndpointSelector from '@/components/EndpointSelector'
+import LabelSearch from '@/components/LabelSearch'
 import RdfResource from '@/components/RdfResource'
-import { DEFAULT_SPARQL_ENDPOINT } from '@/components/settings.js'
+import LanguageSelector from '@/components/LanguageSelector'
+import { DEFAULT_SPARQL_ENDPOINT, DEFAULT_LANG } from '@/components/settings.js'
 
 export default {
   components: {
     LoadingBar,
-    FlexiInput,
+    EndpointSelector,
+    LabelSearch,
+    LanguageSelector,
     RdfResource,
   },
 
   data() {
     return {
-      endpoints: ENDPOINTS,
       endpoint: '',
       resource: '',
       label: '',
       subjectOf: [],
       objectOf: [],
       isLoading: false,
+      lang: DEFAULT_LANG,
     }
   },
 
@@ -139,6 +146,10 @@ export default {
   watch: {
     '$route': function(to) {
       this.processUrlQuery(to.query);
+    },
+
+    lang(to) {
+      this.fetchQuery();
     },
   },
 
@@ -159,7 +170,7 @@ export default {
       }
     },
 
-    fetchQuery(endpoint, query) {
+    fetchQuery() {
       this.isLoading = true;
 
       const url = '/proxy?endpoint=' +
@@ -177,16 +188,22 @@ export default {
     },
 
     getSparql(resource) {
-      return `SELECT ?s ?p ?o WHERE {
+      const langFilter = this.lang ? ` && (lang(?o) = '' || LANGMATCHES(lang(?o), '${this.lang}'))` : '';
+      return `SELECT DISTINCT ?s ?p ?o WHERE {
         {
           SELECT ?p ?o WHERE {
             <${resource}> ?p ?o.
-            FILTER(!isLiteral(?o) || !lang(?o) || lang(?o) = 'en')
-          } LIMIT 50
+            FILTER(isLiteral(?o)${langFilter})
+          } LIMIT 100
+        } UNION {
+          SELECT ?p ?o WHERE {
+            <${resource}> ?p ?o.
+            FILTER(!isLiteral(?o))
+          } LIMIT 100
         } UNION {
           SELECT ?s ?p WHERE {
             ?s ?p <${resource}>.
-          } LIMIT 50
+          } LIMIT 100
         }
       }`;
     },
@@ -223,14 +240,29 @@ export default {
         $('html, body').animate({ scrollTop: 0 }, 'slow');
       }
     },
+
+    resourceSelectHandler(resource) {
+      this.$router.push({ 
+        name: 'resource-browser',
+        query: this.getNewQuery({ r: resource, e: this.endpoint })
+      });
+    },
   },
 }
 </script>
 
 
 <style lang="scss" scoped>
+@import "../styles/variables";
+
 .my-resource-browser {
   position: relative;
+}
+
+.my-resource-interface{
+  margin-top: -$navbar-margin-bottom;
+  padding-top: $form-group-margin-bottom;
+  background: url('../assets/img-noise2.png') 0 0 repeat;
 }
 
 .my-bool-resp {
@@ -249,7 +281,7 @@ export default {
 
 .my-resource-header{
   margin: 15px 0;
-  font-size: 1.5em;
+  font-size: $font-size-h4;
 
   .prefix {
     color: #ccc;

@@ -18,7 +18,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const rp = require('request-promise');
-
+const dotenv = require('dotenv');
+dotenv.load();
 
 const devMode = process.env.SB_ENV === 'development';
 
@@ -36,20 +37,46 @@ if (!devMode) {
 
 // Proxy
 app.get('/proxy', (req, res) => {
-	const endpoint = req.query.endpoint;
-	const sparql = req.query.sparql;
+  const endpoint = req.query.endpoint;
+  const sparql = req.query.sparql;
+  
+  if (!endpoint) return res.status(400).json({ error: 'No endpoint' });
+
+  const urlToEndpoint = endpoint + '?format=json&query=' + encodeURIComponent(sparql);
+
+  rp(urlToEndpoint)
+  .then((respStr) => {
+    return res.status(200).send(respStr);
+  })
+  .catch((err) => {
+    return res.status(400).json({ error: 'Unknown error' });
+  });
+});
+
+// Proxy
+app.post('/contactus', (req, res) => {
+  const name = req.body.name;
+	const msg = req.body.msg;
+
+  const nameValidator = (name) => { return !name || (typeof name === 'string' && name.length <= 30) };
+  const msgValidator = (msg) => { return typeof msg === 'string' && msg.length >= 3 && msg.length <= 500 };
 	
-	if (!endpoint) return res.status(400).json({ error: 'No endpoint' });
+  if (!nameValidator(name)) return res.status(400).json({ error: 'Invalid name' });
+	if (!msgValidator(msg)) return res.status(400).json({ error: 'Missing or invalid message' });
 
-	const urlToEndpoint = endpoint + '?format=json&query=' + encodeURIComponent(sparql);
+  // send an email
+  const mailer = require('./server/helpers/mailer');
 
-	rp(urlToEndpoint)
-	.then((respStr) => {
-		return res.status(200).send(respStr);
-	})
-	.catch((err) => {
-		return res.status(400).json({ error: 'Unknown error' });
-	});
+  mailer.sendAnonymousEmail({
+    senderName: name,
+    msg: msg, 
+  })
+  .then(() => {
+		return res.status(200).json({ message: 'Sent successfully.' });
+  })
+  .catch((err) => {
+		return res.status(400).json({ error: 'Could not send the message.' });
+  });
 });
 
 

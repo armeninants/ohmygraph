@@ -26,16 +26,9 @@
         <button
           @click="runQueryHandler"
           :class="['btn btn-primary my-run-button', { disabled: viewerBusy }]"
-          :disabled="viewerBusy"
         >
-          <span v-if="viewerBusy" key="runButtonState">
-            <i class="fa fa-spinner fa-spin"></i>
-            busy...
-          </span>
-          <span v-else key="runButtonState">
-            <i class="fa fa-play" aria-hidden="true"></i>
-            run
-          </span>
+          <i :class="['fa fa-fw', viewerBusy ? 'fa-spinner fa-spin' : 'fa-play']" aria-hidden="true"></i>
+          {{viewerBusy ? 'abort': 'run'}}
         </button>
       </component>
     </div>
@@ -64,6 +57,7 @@
       :class="['my-viewer-container', { busy: viewerBusy }]"
     >
       <component
+        ref="queryViewer"
         v-if="showViewer"
         :is="currentViewer"
         :query-object="queryObject"
@@ -78,7 +72,7 @@
 <script>
 /**
  * @vue
- * @todo Consolidate.
+ * @author Armen Inants <armen@inants.com>
  */
 import TableView from '@/components/TableView'
 import SparqlEditor from '@/components/SparqlEditor'
@@ -158,8 +152,11 @@ export default {
     },
 
     runQueryHandler() {
-      if (this.viewerBusy) return;
-      this.$refs.interface.$emit('requestForQuery');
+      if (this.viewerBusy) {
+        this.$refs.queryViewer.$emit('abort');
+      } else {
+        this.$refs.interface.$emit('requestForQuery');
+      }
     },
 
     queryDispatchedHandler(queryObject) {
@@ -186,7 +183,6 @@ export default {
       this.$router.replace({
         query: this.getNewQuery({v: viewerId})
       });
-      // this.$route.query.v = viewerId;
     },
   },
 
@@ -201,32 +197,7 @@ export default {
 }
 
 .my-interface-container {
-  // border: 1px #ddd solid;
-  // border-top: 0;
   padding: 15px;
-  // background: #fff;
-  // position: relative;
-
-  // &:before, &:after {
-  //   z-index: -1;
-  //   position: absolute;
-  //   content: "";
-  //   bottom: 15px;
-  //   left: 10px;
-  //   width: 50%;
-  //   top: 80%;
-  //   max-width:300px;
-  //   background: #777;
-  //   box-shadow: 0 15px 10px #777;
-  //   transform: rotate(-3deg);
-  // }
-
-  // &:after {
-  //   transform: rotate(3deg);
-  //   right: 10px;
-  //   left: auto;
-  // }
-
 }
 
 .my-run-button {
@@ -239,5 +210,18 @@ export default {
 
 .my-show-label {
   margin-right: 5px;
+}
+
+.nav-tabs > li.active > a {
+  &, &:active, &:hover, &:focus {
+    background: url('../assets/img-noise2.png') 0 0 repeat;
+    border-color: transparent;
+    font-weight: 700;
+    color: #444;
+    text-shadow: 1px 1px 0px #e0e0e0;
+  }
+}
+.my-interface-container {
+  background: url('../assets/img-noise2.png') 0 0 repeat;
 }
 </style>

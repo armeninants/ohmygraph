@@ -2,17 +2,18 @@
   <div class="my-sparql-editor">
     <div class="row">
       <div class="col-sm-6">
-        <flexi-input
-          :model.sync="endpoint"
-          :data-source="endpoints"
-          key-token="url"
-          label-token="name"
-          placeholder="SPARQL endpoint"
-        ></flexi-input>
+        <div class="form-group">
+          <endpoint-selector
+            :model.sync="endpoint"
+            key-token="url"
+            label-token="name"
+            placeholder="SPARQL endpoint"
+          ></endpoint-selector>
+        </div>
       </div>
       <div class="col-sm-6 form-inline">
-        <div class="form-group my-examples-container">
-          <div class="dropdown">
+        <div class="form-group">
+          <div class="dropdown my-examples">
             <button id="sparqlExamples" class="btn btn-default dropdown-toggle my-examples-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               sample queries
               <span class="caret"></span>
@@ -23,8 +24,6 @@
               </li>
             </ul>
           </div>
-        </div>
-        <div class="form-group">
           <slot></slot>
         </div>
       </div>
@@ -37,22 +36,22 @@
 <script>
 /**
  * @vue
+ * @author Armen Inants <armen@inants.com>
  */
-import FlexiInput from '@/components/FlexiInput'
+import EndpointSelector from '@/components/EndpointSelector'
 import QueryInterface from '@/components/QueryInterface'
 import YASQE from 'yasgui-yasqe/dist/yasqe.bundled.min.js'
 import SPARQL_EXAMPLES from '@/scripts/sparql-examples.json'
-import ENDPOINTS from '@/scripts/endpoints.json'
+
 export default {
   components: {
-    FlexiInput,
+    EndpointSelector,
   },
 
   extends: QueryInterface,
 
   data() {
     return {
-      endpoints: ENDPOINTS,
       endpoint: '',
       examples: SPARQL_EXAMPLES,
     }
@@ -108,7 +107,7 @@ export default {
 <style lang="scss">
 .yasqe .CodeMirror-fullscreen {
   z-index: 1010;
-}
+} 
 
 .yasqe_buttons {
   display: none;
@@ -120,15 +119,8 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.form-group:last-child {
-  margin-bottom: 0;
-}
-
-.my-sparql-editor-container {
-  margin-top: 15px;
-}
-
-.my-examples-container {
-  margin-right: 28px;
+.my-examples {
+  display: inline-block;
+  margin-right: 12px;
 }
 </style>

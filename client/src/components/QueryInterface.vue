@@ -1,6 +1,7 @@
 <script>
 /**
  * @vue
+ * @author Armen Inants <armen@inants.com>
  */
 export default {
   mounted() {

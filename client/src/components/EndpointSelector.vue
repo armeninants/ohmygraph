@@ -1,26 +1,30 @@
 <template>
-  <div class="my-flexiinput-wrapper">
-    <input
-      type="text"
-      class="form-control my-flexiinput"
-      autocomplete="off"
-      v-model="valueInternal"
-      v-focus="focusOnInput"
-      :placeholder="placeholder"
-      @focus="focusOnInputHandler"
-      @keydown.up="upHandler"
-      @keydown.esc="hideDropdown"
-      @keydown.down="downHandler"
-      @keydown.enter="toggleDropdown"
-    >
-    <i class="fa fa-caret-down my-flexi-icon" aria-hidden="true"></i>
+  <div class="my-endpoint-selector-wrapper">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-database" aria-hidden="true"></i></span>
+      <i class="fa fa-caret-down my-flexi-icon" aria-hidden="true"></i>
+      <input
+        type="text"
+        class="form-control my-endpoint-selector"
+        autocomplete="off"
+        v-model="valueInternal"
+        v-focus="focusOnInput"
+        :placeholder="placeholder"
+        @focus="focusOnInputHandler"
+        @keydown.up="upHandler"
+        @keydown.esc="hideDropdown"
+        @keydown.down="downHandler"
+        @keydown.enter="toggleDropdown"
+      >
+    </div>
+
     <ul 
-      class="dropdown-menu pre-scrollable my-flexiinput-dropdown"
+      class="dropdown-menu pre-scrollable my-endpoint-selector-dropdown"
       v-show="dropdownVisible"
       @keydown.down="downHandler"
       @keydown.up="upHandler"
     >
-      <li v-for="(item, i) in dataSource" :key="dataSource[i][keyToken]">
+      <li v-for="(item, i) in endpoints" :key="endpoints[i][keyToken]">
         <a
           href="#"
           tabindex="0"
@@ -31,8 +35,8 @@
           @focus="focusOnItemHandler(i)"
           v-focus="!focusOnInput && dropdownVisible && currentOptionIndex === i"
         >
-          <span class="my-flexiinput-label">{{dataSource[i][labelToken]}}</span>
-          <span :class="['my-flexiinput-key', {parentheses: dataSource[i][labelToken] }]">{{dataSource[i][keyToken]}}</span>
+          <span class="my-endpoint-selector-label">{{endpoints[i][labelToken]}}</span>
+          <span :class="['my-endpoint-selector-key', {parentheses: endpoints[i][labelToken] }]">{{endpoints[i][keyToken]}}</span>
         </a>
       </li>
     </ul>
@@ -42,18 +46,15 @@
 <script>
 /**
  * @vue
+ * @author Armen Inants <armen@inants.com>
  */
+import ENDPOINTS from '@/scripts/endpoints.json'
 import { focus } from 'vue-focus'
 
 export default {
-  name: 'flexi-input',
+  name: 'endpoint-selector',
 
   props: {
-    dataSource: {
-      type: Array,
-      default: () => [],
-    },
-
     keyToken: {
       type: String,
       default: 'id',
@@ -79,6 +80,7 @@ export default {
 
   data() {
     return {
+      endpoints: ENDPOINTS,
       valueInternal: '',
       currentOptionIndex: undefined,
       focusOnInput: false,
@@ -101,7 +103,7 @@ export default {
   },
 
   mounted() {
-    $(window).on('click.flexiinput', event => {
+    $(window).on('click.endpoint-selector', event => {
       if (!$.contains(this.$el, event.target)) {
         this.focusOnInput = false;
         this.hideDropdown();
@@ -110,7 +112,7 @@ export default {
   },
 
   beforeDestroy() {
-    $(window).off('click.flexiinput');
+    $(window).off('click.endpoint-selector');
   },
 
   methods: {
@@ -128,7 +130,7 @@ export default {
 
     focusOnInputHandler() {
       this.focusOnInput = true;
-      if (this.dataSource.length) {
+      if (this.endpoints.length) {
         this.showDropdown();
       }
     },
@@ -138,7 +140,7 @@ export default {
     },
 
     itemSelectHandler(index) {
-      this.valueInternal = this.dataSource[index][this.keyToken];
+      this.valueInternal = this.endpoints[index][this.keyToken];
       this.focusOnInput = false;
       this.hideDropdown();
     },
@@ -149,34 +151,34 @@ export default {
       }
       this.focusOnInput = false;
       var idx = typeof this.currentOptionIndex !== 'undefined' ? this.currentOptionIndex : -1;
-      this.currentOptionIndex = (idx + 1) % this.dataSource.length;
+      this.currentOptionIndex = (idx + 1) % this.endpoints.length;
     },
 
     upHandler() {
       if (!this.dropdownVisible) return;
       this.focusOnInput = false;
       var idx = typeof this.currentOptionIndex !== 'undefined' ? this.currentOptionIndex : 0;
-      this.currentOptionIndex = (idx - 1 + this.dataSource.length) % this.dataSource.length;
+      this.currentOptionIndex = (idx - 1 + this.endpoints.length) % this.endpoints.length;
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.my-flexiinput-wrapper {
+.my-endpoint-selector-wrapper {
   position: relative;
 }
 
-.my-flexiinput {
-  padding-right: 20px;
+.my-endpoint-selector {
+  padding-right: 26px;
 }
 
-.my-flexiinput-dropdown {
+.my-endpoint-selector-dropdown {
   position: absolute;
   display: block;
 }
 
-.my-flexiinput-label {
+.my-endpoint-selector-label {
   font-weight: bold;
 }
 
@@ -191,9 +193,10 @@ export default {
 
 .my-flexi-icon {
   position: absolute;
-  right: 6px;
+  right: 12px;
   top: calc(50% - 9px);
   line-height: 20px;
   color: gray;
+  z-index: 4;
 }
 </style>

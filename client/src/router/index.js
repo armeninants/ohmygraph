@@ -4,6 +4,7 @@ Vue.use(Router)
 
 import Home from '@/components/Home'
 import About from '@/components/About'
+import TheLayout from '@/components/TheLayout'
 import TheQueryBrowser from '@/components/TheQueryBrowser'
 import TheResourceBrowser from '@/components/TheResourceBrowser'
 
@@ -15,36 +16,58 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/query',
-      name: 'query-browser',
-      component: TheQueryBrowser,
-      meta: {
-        title: route => TITLE_TEMPLATE('Query Browser'),
-      },
-    },
-    {
-      path: '/resource',
-      name: 'resource-browser',
-      component: TheResourceBrowser,
-      meta: {
-        title: route => route.query.r ? TITLE_TEMPLATE('Describe ' + route.query.r) : TITLE_TEMPLATE('Resource Browser'),
-      },
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: About,
-      meta: {
-        title: route => TITLE_TEMPLATE('About'),
-      },
-    },
-    {
       path: '/',
       name: 'home',
       component: Home,
       meta: {
         title: route => TITLE_TEMPLATE('Home'),
       },
+    },
+    {
+      path: '/',
+      component: TheLayout,
+      children: [
+        {
+          path: '/query',
+          name: 'query-browser',
+          component: TheQueryBrowser,
+          meta: {
+            title: route => TITLE_TEMPLATE('Query Browser'),
+          },
+        },
+        {
+          path: '/browse',
+          name: 'resource-browser',
+          component: TheResourceBrowser,
+          meta: {
+            title: route => route.query.r ? TITLE_TEMPLATE('Describe ' + route.query.r) : TITLE_TEMPLATE('Resource Browser'),
+          },
+        },
+        {
+          path: '/about',
+          name: 'about',
+          component: About,
+          meta: {
+            title: route => TITLE_TEMPLATE('About'),
+          },
+        },
+        {
+          path: '/useful-links',
+          name: 'useful-links',
+          component: () => import('@/components/UsefulLinks'),
+          meta: {
+            title: route => TITLE_TEMPLATE('Useful Links'),
+          },
+        },
+        {
+          path: '/contact-us',
+          name: 'contact-us',
+          component: () => import('@/components/ContactUs'),
+          meta: {
+            title: route => TITLE_TEMPLATE('Contact Us'),
+          },
+        },
+      ]
     },
     {
       path: '*',

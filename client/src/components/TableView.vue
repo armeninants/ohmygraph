@@ -26,6 +26,7 @@
 <script>
 /**
  * @vue
+ * @author Armen Inants <armen@inants.com>
  */
 import RdfResource from '@/components/RdfResource'
 export default {
@@ -53,11 +54,13 @@ export default {
   },
 
   watch: {
-    queryObject(to, from) {
-      // if (to.endpoint !== from.endpoint || to.sparql !== from.sparql) {
-        this.fetchQuery();
-      // }
+    queryObject() {
+      this.fetchQuery();
     },
+  },
+
+  created() {
+    this.$on('abort', this.queryAbortHandler);
   },
 
   mounted() {
@@ -66,26 +69,32 @@ export default {
 
   methods: {
     fetchQuery(endpoint, query) {
-      this.$emit('busy');
-      const url = '/proxy?endpoint=' +
-        encodeURIComponent(this.queryObject.endpoint) +
-        '&sparql=' +
-        encodeURIComponent(this.queryObject.sparql);
-
-      $.getJSON(url)
-      .then(this.processResp, err => {
-        this.response = {};
-        $.notify(err, 'error');
-        this.$emit('idle');
-      });
+      this.xhr = this.$sparqlGet({
+        endpoint: this.queryObject.endpoint,
+        sparql: this.queryObject.sparql
+      })
+        .done(resp => {
+          this.processResp(resp)
+        })
+        .fail(resp => {
+          this.response = {}
+        })
     },
 
     processResp(resp) {
       this.response = resp;
       this.$emit('idle');
-      this.$router.push({ 
+      this.$router.push({
+        name: 'query-browser',
         query: this.getNewQuery({ e: this.queryObject.endpoint, q: this.queryObject.sparql, v: 'table' }, ['r'])
       });
+    },
+
+    queryAbortHandler() {
+      console.log('aborting...');
+      if (this.xhr && this.xhr.abort) {
+        this.xhr.abort();
+      }
     },
   },
 }

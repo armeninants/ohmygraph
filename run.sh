@@ -9,7 +9,7 @@ if [ $1 == "dev" ]; then
 	./server.js
 else
 	cd client/
-	npm run build &
+	npm run build
 	cd ..
 	chmod +x server.js
 	./server.js

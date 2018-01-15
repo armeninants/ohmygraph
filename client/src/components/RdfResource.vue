@@ -3,15 +3,20 @@
     <span
       class="my-uri"
       v-if="isUri"
+      key="resType"
       :style="'color: ' + color + ';'"
       tabindex="0"
       ref="link"
       @click="showDropdown"
       @blur="hideDropdown"
     >
-      <small class="my-ns" v-if="prefix">{{ns + ':'}}</small><span class="my-postfix">{{postfix}}</span>
+      <small class="my-ns" v-if="prefix">{{ns + ':'}}</small><!-- 
+   --><span class="my-postfix" :title="prefix + postfix">{{shorten(postfix)}}</span>
     </span>
-    <span v-else>{{model.value}}</span>
+    <span v-else key="resType">
+      {{model.value}}
+      <span v-if="model['xml:lang']" class="my-lang">({{model['xml:lang']}})</span>
+    </span>
 
     <ul
       class="dropdown-menu my-dropdown"
@@ -30,9 +35,11 @@
 <script>
 /**
  * @vue
+ * @author Armen Inants <armen@inants.com>
  */
 import { focus } from 'vue-focus'
 import PREFIXES from "@/scripts/prefixes.json"
+import { URI_LENGTH_MAX } from "@/components/settings.js"
 
 export default {
   props: {
@@ -65,31 +72,14 @@ export default {
     },
   },
 
+  watch: {
+    model() {
+      this.processModel();
+    },
+  },
+
   created() {
-    const type = this.model.type;
-    const val = this.model.value;
-
-    this.isUri = type === 'uri';
-    this.isLiteral = type === 'literal';
-    this.isBlank = type === 'blank';
-
-    if (this.isUri) {
-      this.color = '#145eb8';
-      this.postfix = val;
-      for (let i = PREFIXES.length - 1; i >= 0; i--) {
-        if (val.startsWith(PREFIXES[i][0])) {
-          this.ns = PREFIXES[i][1];
-          this.prefix = PREFIXES[i][0];
-          this.color = `hsl(${PREFIXES[i][2]}, 80%, 40%)`;
-          this.postfix = val.substring(PREFIXES[i][0].length);
-          break;
-        }
-      }
-      if (this.prefix && !this.postfix) {
-        this.postfix = this.prefix;
-        this.prefix = '';
-      }
-    }
+    this.processModel();
   },
 
   mounted() {
@@ -119,6 +109,37 @@ export default {
       const h = () => this.dropdownViz = false;
       setTimeout(h.bind(this), 500);
     },
+
+    shorten(str) {
+      return str.length <= URI_LENGTH_MAX ? str : str.substring(1, URI_LENGTH_MAX - 3) + '...'; 
+    },
+
+    processModel() {
+      const type = this.model.type;
+      const val = this.model.value;
+
+      this.isUri = type === 'uri';
+      this.isLiteral = type === 'literal';
+      this.isBlank = type === 'blank';
+
+      if (this.isUri) {
+        this.color = '#444';
+        this.postfix = val;
+        for (let i = PREFIXES.length - 1; i >= 0; i--) {
+          if (val.startsWith(PREFIXES[i][0])) {
+            this.ns = PREFIXES[i][1];
+            this.prefix = PREFIXES[i][0];
+            this.color = `hsl(${PREFIXES[i][2]}, 80%, 40%)`;
+            this.postfix = val.substring(PREFIXES[i][0].length);
+            break;
+          }
+        }
+        if (this.prefix && !this.postfix) {
+          this.postfix = this.prefix;
+          this.prefix = '';
+        }
+      }
+    },
   },
 
 }
@@ -145,5 +166,10 @@ export default {
   z-index: 1010;
   margin: 0;
   display: block;
+}
+
+.my-lang {
+  font-size: 0.75em;
+  color: gray;
 }
 </style>

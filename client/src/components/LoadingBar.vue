@@ -5,6 +5,7 @@
 <script>
 /**
  * @vue
+ * @author Armen Inants <armen@inants.com>
  */
 export default {
   props: {
@@ -17,6 +18,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables";
+
 .loader {
   height: 4px;
   width: 100%;
@@ -31,7 +34,7 @@ export default {
     left: -200px;
     width: 200px;
     height: 4px;
-    background-color: mix(#db2042, #663399); //#663399;
+    background-color: $logo2;
     animation: loading 2s linear infinite;
   }
 }
