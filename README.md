@@ -50,10 +50,13 @@ To stop, run `npm run stop`.
 
 ## Pulling updates
 
+
 ``` bash
 npm run update
 npm run start
 ```
+
+`npm run update` is intended for production only, since it will reset all your local changes.
 
 ## License
 
