@@ -5,7 +5,7 @@
     </div>
     <div class="my-home-content">
       <div class="my-logo-container">
-        <span class="my-logo"><span class="my-logo-color1">SemanticWeb</span><span class="my-logo-color2">.rockS</span> <span class="my-logo-sup">alpha</span></span>
+        <img src="../assets/logo.png" alt="SemanticWeb.rocks" class="my-logo">
       </div>
       <div class="my-motto">
         An <span class="my-m1">open collaborative effort</span> to unleash the <span class="my-m3">full potential</span> of <span class="my-m2">Linked Open Data</span>.
@@ -53,24 +53,20 @@ export default {
   text-align: center;
 
 }
-.my-logo-container { 
-  line-height: 80px;
-  font-size: 80px;
-}
 
 @media (max-width: $screen-xs-min - 1) {
   .my-logo {
-    font-size: 42px;
+    width: 316px;
   }
 }
 @media (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
   .my-logo {
-    font-size: 60px;
+    width: 450px;
   }
 }
 @media (min-width: $screen-sm-min) {
   .my-logo {
-    font-size: 80px;
+    width: 602px;
   }
 }
 

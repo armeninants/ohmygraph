@@ -10,7 +10,7 @@
         </button>
         <span class="visible-xs filter-menu"></span>
         <router-link :to="{ name: 'home' }" class="navbar-brand">
-          <span class="my-logo"><span class="my-logo-color1">SemanticWeb</span><span class="my-logo-color2">.rockS</span> <span class="my-logo-sup">alpha</span></span>
+          <img src="../assets/logo.png" alt="SemanticWeb.rocks" class="my-logo">
         </router-link>
       </div>
       <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -41,6 +41,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables";
+
 .navbar {
   box-shadow: 0 0px 1px #888; 
   border: none;
@@ -51,8 +53,14 @@ export default {
   background: #fff;
 }
 
+$logo-padding-top: 9px;
+
 .my-logo {
-  font-size: 30px;
+  height: $navbar-height - $logo-padding-top * 2;
+}
+
+.navbar-brand {
+  padding: $logo-padding-top 15px;
 }
 
 .my-nav-main {
