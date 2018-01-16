@@ -22,13 +22,13 @@ if [ "$SB_ENV" == "development" ]; then
 	webpack-dev-server --inline --progress --config "${DIR}/client/build/webpack.dev.conf.js" &
 	echo $! > "${DIR}/client.pid"
 	cd "${DIR}/server/"
-	forever start --pidFile "${DIR}/server.pid" --watchDirectory "${DIR}/server/" --spinSleepTime 1000 --minUptime 1000 server.js
+	forever start --pidFile "${DIR}/server.pid" --watchDirectory "${DIR}/server/" --spinSleepTime 1000 --minUptime 1000 -w server.js
 
 elif [ "$SB_ENV" == "production" ]; then
 	cd "${DIR}/client/"
 	node build/build.js
 	cd "${DIR}/server/"
-	forever start --pidFile "${DIR}/server.pid" --watchDirectory "${DIR}/server/" --spinSleepTime 1000 --minUptime 1000 server.js
+	forever start --pidFile "${DIR}/server.pid" --watchDirectory "${DIR}/server/" --spinSleepTime 1000 --minUptime 1000 -w server.js
 
 else
 	echo "ERROR! Make sure SB_ENV environment variable is set."

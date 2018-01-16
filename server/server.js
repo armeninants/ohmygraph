@@ -7,7 +7,6 @@
  */
 
 'use strict';
-
 const http = require('http');
 const path = require('path');
 const express = require('express');
@@ -16,8 +15,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const rp = require('request-promise');
-// const dotenv = require('dotenv').config({path: '../'});
-// dotenv.load();
+require('dotenv').config({path: path.join(__dirname, '/../')});
 
 const CLIENT_PUBLIC_DIR = path.join(__dirname, '/../client/dist');
 const devMode = process.env.SB_ENV === 'development';
