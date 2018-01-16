@@ -58,7 +58,7 @@ export default {
 .my-nav-main {
   text-transform: lowercase;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
 
   a {
     color: gray;
