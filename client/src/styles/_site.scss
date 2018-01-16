@@ -7,33 +7,3 @@ html {
 body {
   height: 100%;
 }
-
-.my-logo {
-  -webkit-touch-callout: none;
-    -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-
-  white-space: nowrap;
-  text-align: center;
-
-  &, &:link, &:active, &:focus, &:hover {
-  }
-  .my-logo-color1 {
-    color: $logo1 !important;
-  }
-  .my-logo-color2 {
-    color: $logo2 !important;
-  }
-  .my-logo-sup {
-    color: gray;
-    font-size: 0.5em;
-    position: relative;
-    top: -1em;
-    left: -0.7em;
-  }
-
-  font-family: $font-family-logo;
-}
