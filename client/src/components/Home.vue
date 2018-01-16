@@ -79,7 +79,7 @@ export default {
   float: none;
   margin-top: 30px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
 
   a, a:link, a:active, a:focus, a:hover {
     color: black;
