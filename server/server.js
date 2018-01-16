@@ -62,7 +62,7 @@ app.post('/contactus', (req, res) => {
 	if (!msgValidator(msg)) return res.status(400).json({ error: 'Missing or invalid message' });
 
   // send an email
-  const mailer = require('./server/helpers/mailer');
+  const mailer = require('./helpers/mailer');
 
   mailer.sendAnonymousEmail({
     senderName: name,
