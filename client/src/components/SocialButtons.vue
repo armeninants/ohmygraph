@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li>
-      <a :href="fbShareLink" class="my-share my-share-facebook" target="_blank"><i class="fa fa-lg fa-facebook" aria-hidden="true"></i></a>
+      <a href="#" @click.prevent="fbShare" class="my-share my-share-facebook" target="_blank"><i class="fa fa-lg fa-facebook" aria-hidden="true"></i></a>
     </li>
     <li>
       <a :href="twitterShareLink" class="my-share my-share-twitter" target="_blank"><i class="fa fa-lg fa-twitter" aria-hidden="true"></i></a>
@@ -31,8 +31,12 @@
  */
 export default {
   computed: {
-    fbShareLink() {
-      return `http://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}&title=${encodeURIComponent(document.title)}`;
+    fbShare() {
+      FB.ui({
+        method: 'share',
+        href: 'https://developers.facebook.com/docs/',
+        mobile_iframe: true,
+      }, function(response){});
     },
     twitterShareLink() {
       return `http://twitter.com/intent/tweet?status=${encodeURIComponent(document.title)}+${encodeURIComponent(location.href)}`;
