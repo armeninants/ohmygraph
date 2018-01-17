@@ -31,13 +31,6 @@
  */
 export default {
   computed: {
-    fbShare() {
-      FB.ui({
-        method: 'share',
-        href: location.href,
-        mobile_iframe: true,
-      }, function(response){});
-    },
     twitterShareLink() {
       return `http://twitter.com/intent/tweet?status=${encodeURIComponent(document.title)}+${encodeURIComponent(location.href)}`;
     },
@@ -49,6 +42,16 @@ export default {
     },
     mailShareLink() {
       return `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(location.href)}`;
+    },
+  },
+
+  methods: {
+    fbShare() {
+      FB.ui({
+        method: 'share',
+        href: location.href,
+        mobile_iframe: true,
+      }, function(response){});
     },
   },
 }
