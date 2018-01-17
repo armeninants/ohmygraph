@@ -2,17 +2,18 @@ import 'font-awesome/css/font-awesome.css'
 import '@/styles/app.scss'
 import '@/scripts/ai-notify/ai-notify.js'
 import '@/scripts/ai-notify/ai-notify.css'
-import globalMixins from '@/components/global-mixins'
-import QueryEngine from '@/components/QueryEngine'
-import VeeValidate from 'vee-validate';
 
 import Vue from 'vue'
-// import vue-localstorageage from 'vue-localstorage'
+import VeeValidate from 'vee-validate';
+import VueAnalytics from 'vue-analytics'
+import QueryEngine from '@/components/QueryEngine'
+import globalMixins from '@/components/global-mixins'
 import App from './App'
 import router from './router'
+
+// import vue-localstorageage from 'vue-localstorage'
 import { AJAX_TIMEOUT_MS } from '@/components/settings'
 
-import VueAnalytics from 'vue-analytics'
 
 Vue.config.productionTip = false
 

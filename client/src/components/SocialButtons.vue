@@ -34,7 +34,7 @@ export default {
     fbShare() {
       FB.ui({
         method: 'share',
-        href: 'https://developers.facebook.com/docs/',
+        href: location.href,
         mobile_iframe: true,
       }, function(response){});
     },
