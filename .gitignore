@@ -16,3 +16,4 @@ yarn-error.log*
 .env
 routines/
 *.pid
+sftp-config.json

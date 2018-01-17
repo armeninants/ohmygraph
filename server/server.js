@@ -17,6 +17,7 @@ const router = express.Router();
 const rp = require('request-promise');
 require('dotenv').config({path: path.join(__dirname, '/../.env')});
 
+
 const CLIENT_PUBLIC_DIR = path.join(__dirname, '/../client/dist');
 const devMode = process.env.SB_ENV === 'development';
 
