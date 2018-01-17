@@ -1,5 +1,3 @@
-import jQuery from 'jquery/src/jquery.js'
-import 'bootstrap/dist/js/bootstrap.js'
 import 'font-awesome/css/font-awesome.css'
 import '@/styles/app.scss'
 import '@/scripts/ai-notify/ai-notify.js'
