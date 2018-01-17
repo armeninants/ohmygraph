@@ -10,7 +10,7 @@
         </button>
         <span class="visible-xs filter-menu"></span>
         <router-link :to="{ name: 'home' }" class="navbar-brand">
-          <img src="../assets/logo.png" alt="SemanticWeb.rocks" class="my-logo">
+          <img src="/static/images/logo.png" alt="SemanticWeb.rocks" class="my-logo">
         </router-link>
       </div>
       <div class="collapse navbar-collapse" id="app-navbar-collapse">

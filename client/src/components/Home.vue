@@ -5,7 +5,7 @@
     </div>
     <div class="my-home-content">
       <div class="my-logo-container">
-        <img src="../assets/logo.png" alt="SemanticWeb.rocks" class="my-logo">
+        <img src="/static/images/logo.png" alt="SemanticWeb.rocks" class="my-logo">
       </div>
       <div class="my-motto">
         An <span class="my-m1">open collaborative effort</span> to unleash the <span class="my-m3">full potential</span> of <span class="my-m2">Linked Open Data</span>.
@@ -16,7 +16,7 @@
         <li role="presentation"><router-link :to="{ name: 'about' }">About</router-link></li>
       </ul>
       <div class="my-screencast">
-        <img src="../assets/screencast1.gif">
+        <img src="/static/images/screencast1.gif">
       </div>
     </div>
   </div>
