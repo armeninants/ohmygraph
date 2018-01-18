@@ -18,7 +18,8 @@ import { AJAX_TIMEOUT_MS } from '@/components/settings'
 Vue.config.productionTip = false
 
 Vue.use(VueAnalytics, {
-  id: CONF.GA_TRACKING_ID
+  id: CONF.GA_TRACKING_ID,
+  router,
 })
 
 // Vue.use(VueLocalStorage, {
