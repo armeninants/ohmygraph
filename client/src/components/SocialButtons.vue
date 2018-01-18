@@ -53,7 +53,7 @@ export default {
     },
 
     linkedinShare() {
-      const url = `http://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(location.href)}&title=${encodeURIComponent(document.title)}&source=${encodeURIComponent(location.origin)}`;
+      const url = `http://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(location.href + '?1')}&title=${encodeURIComponent(document.title)}&source=${encodeURIComponent(location.origin)}`;
       const width = 520;
       const height = 570;
 
