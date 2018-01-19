@@ -7,7 +7,7 @@
 Semantic Browser is the source code of [SemanticWeb.rocks](http://semanticweb.rocks).
 This instruction will help you to use it for both development and production.
 
-![SemanticWeb.rock Demo](https://raw.githubusercontent.com/armeninants/semantic-browser/master/client/src/static/images/screencast1.gif)
+![SemanticWeb.rock Demo](https://raw.githubusercontent.com/armeninants/semantic-browser/master/client/static/images/screencast1.gif)
 
 ## Prerequisites
 

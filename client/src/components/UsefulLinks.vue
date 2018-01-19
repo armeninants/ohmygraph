@@ -15,6 +15,7 @@
       <li><a href="https://www.w3.org/TR/sparql11-query/" class="my-link">SPARQL 1.1 Query Language</a> &mdash; W3C Recommendation 21 March 2013.</li>
       <li><a href="https://www.w3.org/2009/sparql/wiki/Main_Page" class="my-link">The SPARQL 1.1 Working Group Wiki</a> &mdash; Links to eleven W3C Recommendations by the group.</li>
       <li><a href="http://www.iro.umontreal.ca/~lapalme/ift6281/sparql-1_1-cheat-sheet.pdf" class="my-link">SPARQL By Example: The Cheat Sheet</a></li>
+      <li><a href="https://www.w3.org/TR/skos-primer/" class="my-link">SKOS Simple Knowledge Organization System Primer</a> &mdash; SKOS (Simple Knowledge Organization System) provides a model for expressing the basic structure and content of concept schemes such as thesauri, classification schemes, subject heading lists, taxonomies, folksonomies, and other similar types of controlled vocabulary.</li>
     </ol>
   </div>
 </template>
