@@ -15,8 +15,8 @@
       </div>
       <div class="collapse navbar-collapse" id="app-navbar-collapse">
         <ul class="nav navbar-nav my-nav-main">
-          <li><router-link :to="{ name: 'resource-browser' }">Browse</router-link></li>
-          <li><router-link :to="{ name: 'query-browser' }">Query</router-link></li>
+          <li><router-link :to="{ name: 'resource-browser' }">browse</router-link></li>
+          <li><router-link :to="{ name: 'query-browser' }">query</router-link></li>
         </ul>
         <social-buttons class="nav navbar-nav navbar-right"></social-buttons>
       </div>
@@ -69,7 +69,6 @@ $logo-padding-top: 7px;
 }
 
 .my-nav-main {
-  text-transform: lowercase;
   font-weight: 700;
   font-size: 18px;
 
