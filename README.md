@@ -1,6 +1,6 @@
-# Semantic Browser
+# OhMyGraph Semantic Browser
 
-> A free tool to browse and query any SPARQL endpoint.
+> An RDF browser and SPARQL client.
 
 This instruction will help you to use OhMyGraph Semantic Browser for both development and production.
 
