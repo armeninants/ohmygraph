@@ -2,12 +2,13 @@
 
 > A free tool to browse and query any SPARQL endpoint.
 
+This instruction will help you to use OhMyGraph Semantic Browser for both development and production.
+
 ## Demo
 
-Semantic Browser is the source code of [SemanticWeb.rocks](http://semanticweb.rocks).
-This instruction will help you to use it for both development and production.
+[OhMyGraph.com](http://ohmygraph.com).
 
-![SemanticWeb.rock Demo](https://raw.githubusercontent.com/armeninants/semantic-browser/master/client/static/images/screencast1.gif)
+![OhMyGraph](https://raw.githubusercontent.com/armeninants/ohmygraph/master/client/static/images/screencast1.gif)
 
 ## Prerequisites
 
