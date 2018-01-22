@@ -1,6 +1,6 @@
 {
   "name": "ohmygraph",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An RDF browser and SPARQL client.",
   "author": "Armen Inants <armen@inants.com>",
   "license": "Apache-2.0",
