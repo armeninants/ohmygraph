@@ -16,7 +16,7 @@
       <a :href="mailShareLink" class="my-share my-share-mail" target="_blank"><i class="fa fa-lg fa-envelope" aria-hidden="true"></i></a>
     </li>
     <li>
-      <a class="my-share my-share-github" href="https://github.com/armeninants/semantic-browser" target="_blank" title="GitHub">
+      <a class="my-share my-share-github" href="https://github.com/armeninants/ohmygraph" target="_blank" title="GitHub">
         <i class="fa fa-lg fa-github" aria-hidden="true"></i>
       </a>
     </li>

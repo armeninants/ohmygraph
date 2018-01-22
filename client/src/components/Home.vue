@@ -5,15 +5,14 @@
     </div>
     <div class="my-home-content">
       <div class="my-logo-container">
-        <img src="/static/images/logo.png" alt="SemanticWeb.rocks" class="my-logo">
+        <img src="/static/images/logo.png" :alt="SITE_NAME" class="my-logo">
       </div>
-      <div class="my-motto">
-        An <span class="my-m1">open collaborative effort</span> to unleash the <span class="my-m3">full potential</span> of <span class="my-m2">Linked Open Data</span>.
-      </div>
+<!--       <div class="my-motto">
+        A SPARQL client and RDF browser.
+      </div> -->
       <ul class="nav nav-pills my-nav-central">
-        <li role="presentation"><router-link :to="{ name: 'resource-browser' }">Browse</router-link></li>
-        <li role="presentation"><router-link :to="{ name: 'query-browser' }">Query</router-link></li>
-        <li role="presentation"><router-link :to="{ name: 'about' }">About</router-link></li>
+        <li role="presentation"><router-link :to="{ name: 'resource-browser' }">RDF browser</router-link></li>
+        <li role="presentation"><router-link :to="{ name: 'query-browser' }">SPARQL client</router-link></li>
       </ul>
       <div class="my-screencast">
         <img src="/static/images/screencast1.gif">
@@ -34,6 +33,12 @@ export default {
   components: {
     SocialButtons,
   },
+
+  data() {
+    return {
+      SITE_NAME: CONF.SITE_NAME,
+    }
+  },
 }
 </script>
 
@@ -52,6 +57,10 @@ export default {
   margin-top: 13vh;
   text-align: center;
 
+}
+
+.my-logo-container {
+  // margin-bottom: 25px;
 }
 
 @media (max-width: $screen-xs-min - 1) {
@@ -79,7 +88,6 @@ export default {
 
   a, a:link, a:active, a:focus, a:hover {
     color: black;
-    text-transform: lowercase;
   }
 }
 

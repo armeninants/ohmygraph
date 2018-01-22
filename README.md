@@ -23,8 +23,8 @@ npm install -g webpack-dev-server
 ## Installing
 
 ``` bash
-git clone https://github.com/armeninants/ai-semantic-browser.git
-cd ai-semantic-browser/
+git clone https://github.com/armeninants/ohmygraph.git
+cd ohmygraph/
 chmod gu+x ./*.sh
 ```
 
@@ -60,4 +60,4 @@ npm run start
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](https://raw.githubusercontent.com/armeninants/ai-semantic-browser/master/LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](https://raw.githubusercontent.com/armeninants/ohmygraph/master/LICENSE) file for details.

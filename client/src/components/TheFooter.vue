@@ -1,12 +1,13 @@
 <template>
   <div class="container-fluid footer">
     <div class="row">
-        <div class="col-xs-8">
-          This work is licensed under <a href="https://raw.githubusercontent.com/armeninants/ai-semantic-browser/master/LICENSE">Apache License 2.0</a>.
+        <div class="col-xs-6">
+          This work is licensed under <a href="https://raw.githubusercontent.com/armeninants/ohmygraph/master/LICENSE">Apache License 2.0</a>.
         </div>
-        <div class="col-xs-4 my-footer-menu">
+        <div class="col-xs-6 my-footer-menu">
             <ul class="list-inline">
               <li><router-link :to="{ name: 'useful-links' }">useful links</router-link></li>
+              <li><router-link :to="{ name: 'contributors' }">contributors</router-link></li>
               <li><router-link :to="{ name: 'contact-us' }">contact us</router-link></li>
             </ul>
         </div>

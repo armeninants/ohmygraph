@@ -3,7 +3,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import Home from '@/components/Home'
-import About from '@/components/About'
+import Contributors from '@/components/Contributors'
 import TheLayout from '@/components/TheLayout'
 import TheQueryBrowser from '@/components/TheQueryBrowser'
 import TheResourceBrowser from '@/components/TheResourceBrowser'
@@ -44,11 +44,11 @@ const router = new Router({
           },
         },
         {
-          path: '/about',
-          name: 'about',
-          component: About,
+          path: '/contributors',
+          name: 'contributors',
+          component: Contributors,
           meta: {
-            title: route => TITLE_TEMPLATE('About'),
+            title: route => TITLE_TEMPLATE('Contributors'),
           },
         },
         {

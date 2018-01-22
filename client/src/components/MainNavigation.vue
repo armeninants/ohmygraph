@@ -10,14 +10,13 @@
         </button>
         <span class="visible-xs filter-menu"></span>
         <router-link :to="{ name: 'home' }" class="navbar-brand">
-          <img src="/static/images/logo.png" alt="SemanticWeb.rocks" class="my-logo">
+          <img src="/static/images/logo.png" :alt="SITE_NAME" class="my-logo">
         </router-link>
       </div>
       <div class="collapse navbar-collapse" id="app-navbar-collapse">
         <ul class="nav navbar-nav my-nav-main">
           <li><router-link :to="{ name: 'resource-browser' }">Browse</router-link></li>
           <li><router-link :to="{ name: 'query-browser' }">Query</router-link></li>
-          <li><router-link :to="{ name: 'about' }">About</router-link></li>
         </ul>
         <social-buttons class="nav navbar-nav navbar-right"></social-buttons>
       </div>
@@ -37,6 +36,12 @@ export default {
   components: {
     SocialButtons,
   },
+
+  data() {
+    return {
+      SITE_NAME: CONF.SITE_NAME,
+    }
+  },
 }
 </script>
 
@@ -53,7 +58,7 @@ export default {
   background: #fff;
 }
 
-$logo-padding-top: 9px;
+$logo-padding-top: 7px;
 
 .my-logo {
   height: $navbar-height - $logo-padding-top * 2;

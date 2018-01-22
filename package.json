@@ -1,5 +1,5 @@
 {
-  "name": "ai-semantic-browser",
+  "name": "ohmygraph",
   "version": "1.0.0",
   "description": "A free tool to browse and query any SPARQL endpoint",
   "author": "Armen Inants <armen@inants.com>",
@@ -13,6 +13,6 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/armeninants/ai-semantic-browser.git"
+    "url": "https://github.com/armeninants/ohmygraph.git"
   }
 }

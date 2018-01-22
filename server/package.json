@@ -1,5 +1,5 @@
 {
-  "name": "ai-semantic-browser-server",
+  "name": "ohmygraph-server",
   "version": "1.0.0",
   "description": "A free tool to browse and query any SPARQL endpoint",
   "author": "Armen Inants <armen@inants.com>",
