@@ -6,7 +6,7 @@ This instruction will help you to use OhMyGraph Semantic Browser for both develo
 
 ## Demo
 
-[OhMyGraph.com](http://ohmygraph.com).
+[OhMyGraph.com](http://ohmygraph.com)
 
 ![OhMyGraph](https://raw.githubusercontent.com/armeninants/ohmygraph/master/client/static/images/screencast1.gif)
 
