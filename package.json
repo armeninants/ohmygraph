@@ -1,7 +1,7 @@
 {
   "name": "ohmygraph",
   "version": "1.0.0",
-  "description": "A free tool to browse and query any SPARQL endpoint",
+  "description": "An RDF browser and SPARQL client.",
   "author": "Armen Inants <armen@inants.com>",
   "license": "Apache-2.0",
   "scripts": {
