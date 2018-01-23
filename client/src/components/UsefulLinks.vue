@@ -17,6 +17,7 @@
       <li><a href="http://www.iro.umontreal.ca/~lapalme/ift6281/sparql-1_1-cheat-sheet.pdf" class="my-link">SPARQL By Example: The Cheat Sheet</a></li>
       <li><a href="https://www.w3.org/TR/skos-primer/" class="my-link">SKOS Simple Knowledge Organization System Primer</a> &mdash; SKOS (Simple Knowledge Organization System) provides a model for expressing the basic structure and content of concept schemes such as thesauri, classification schemes, subject heading lists, taxonomies, folksonomies, and other similar types of controlled vocabulary.</li>
       <li><a href="https://www.w3.org/wiki/SweoIG/TaskForces/CommunityProjects/LinkingOpenData" class="my-link">Linking Open Data Community</a> &mdash; Links to relevant material.</li>
+      <li><a href="http://linkeddatafragments.org/" class="my-link">Linked Data Fragments</a> &mdash; Query the Web of data on Web-scale by moving intelligence from servers to clients.</li>
     </ol>
   </div>
 </template>

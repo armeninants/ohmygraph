@@ -7,7 +7,6 @@
             <label-search
               :endpoint="endpoint"
               @selected="resourceSelectHandler"
-              @select:lang="val => {lang = val}"
             ></label-search>
           </div>
         </div>
@@ -76,7 +75,7 @@
               <td>
                 is
                 <rdf-resource
-                  :model="{type: 'uri', value: entry[0]}"
+                  :model="{'type': 'uri', value: entry[0]}"
                   :endpoint="endpoint"
                 ></rdf-resource>
                 of
@@ -110,19 +109,20 @@
  * @author Armen Inants <armen@inants.com>
  */
 import LoadingBar from '@/components/LoadingBar'
-import EndpointSelector from '@/components/EndpointSelector'
 import LabelSearch from '@/components/LabelSearch'
 import RdfResource from '@/components/RdfResource'
+import EndpointSelector from '@/components/EndpointSelector'
 import LanguageSelector from '@/components/LanguageSelector'
-import { DEFAULT_SPARQL_ENDPOINT, DEFAULT_LANG } from '@/components/settings.js'
+import { DEFAULT_SPARQL_ENDPOINT } from '@/components/settings.js'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     LoadingBar,
-    EndpointSelector,
     LabelSearch,
-    LanguageSelector,
     RdfResource,
+    EndpointSelector,
+    LanguageSelector,
   },
 
   data() {
@@ -133,7 +133,6 @@ export default {
       subjectOf: [],
       objectOf: [],
       isLoading: false,
-      lang: DEFAULT_LANG,
     }
   },
 
@@ -141,6 +140,10 @@ export default {
     showResults() {
       return !!(this.subjectOf.length || this.objectOf.length);
     },
+
+    ...mapGetters([
+      'language',
+    ]),
   },
 
   watch: {
@@ -148,7 +151,7 @@ export default {
       this.processUrlQuery(to.query);
     },
 
-    lang(to) {
+    language(to) {
       this.fetchQuery();
     },
   },
@@ -188,7 +191,7 @@ export default {
     },
 
     getSparql(resource) {
-      const langFilter = this.lang ? ` && (lang(?o) = '' || LANGMATCHES(lang(?o), '${this.lang}'))` : '';
+      const langFilter = this.language ? ` && (lang(?o) = '' || LANGMATCHES(lang(?o), '${this.language}'))` : '';
       return `SELECT DISTINCT ?s ?p ?o WHERE {
         {
           SELECT ?p ?o WHERE {

@@ -10,8 +10,9 @@ import QueryEngine from '@/components/QueryEngine'
 import globalMixins from '@/components/global-mixins'
 import App from './App'
 import router from './router'
+import store from './store'
 
-// import vue-localstorageage from 'vue-localstorage'
+import VueLocalStorage from 'vue-localstorage'
 import { AJAX_TIMEOUT_MS } from '@/components/settings'
 
 
@@ -21,17 +22,16 @@ Vue.use(VueAnalytics, {
   id: CONF.GA_TRACKING_ID,
   router,
 })
-
-// Vue.use(VueLocalStorage, {
-//   name: 'ls',
-//   bind: true
-// })
-
-Vue.use(VeeValidate);
-
+Vue.use(VueLocalStorage, {
+  name: 'ls',
+  bind: true,
+})
+Vue.use(VeeValidate, { inject: false });
 Vue.use(QueryEngine)
 
 Vue.mixin(globalMixins)
+
+store.dispatch('initState');
 
 jQuery.ajaxSetup({
   timeout: AJAX_TIMEOUT_MS,
@@ -39,6 +39,7 @@ jQuery.ajaxSetup({
 
 new Vue({
   el: '#app',
+  store,
   router,
   template: '<App/>',
   components: { App }

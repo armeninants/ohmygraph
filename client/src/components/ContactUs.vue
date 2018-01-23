@@ -48,6 +48,7 @@ import { focus } from 'vue-focus'
  
 export default {
   directives: { focus },
+  inject: ['$validator'],
 
   data() {
     return {

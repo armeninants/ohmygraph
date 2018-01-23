@@ -30,7 +30,7 @@
  * @author Armen Inants <armen@inants.com>
  */
 import langs from 'langs'
-import { DEFAULT_LANG } from '@/components/settings.js'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -47,14 +47,18 @@ export default {
         ? this.unselectedLabel
         : this.languages[this.selectedIndex].local
     },
+
+    ...mapGetters([
+      'language',
+    ]),
   },
 
   watch: {
     selectedIndex(index) {
       if (index === undefined) {
-        this.$emit('select', '')
+        this.setLanguage('');
       } else {
-        this.$emit('select', this.languages[index][1])
+        this.setLanguage(this.languages[index][1]);
       }
     },
   },
@@ -67,6 +71,10 @@ export default {
     selectOptionHandler(index) {
       this.selectedIndex = index
     },
+
+    ...mapActions([
+      'setLanguage',
+    ]),
   },
 }
 </script>

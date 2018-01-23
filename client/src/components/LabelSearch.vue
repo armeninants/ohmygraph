@@ -16,7 +16,7 @@
         @keydown.enter="fetch"
       >
 
-      <language-selector @select="langSelectHandler"></language-selector>
+      <language-selector></language-selector>
 
       <span class="input-group-btn">
         <button
@@ -63,9 +63,10 @@
  * @vue
  * @author Armen Inants <armen@inants.com>
  */
-import { DEFAULT_SPARQL_ENDPOINT, DEFAULT_LANG } from '@/components/settings.js'
+import { DEFAULT_SPARQL_ENDPOINT } from '@/components/settings.js'
 import { focus } from 'vue-focus'
 import LanguageSelector from '@/components/LanguageSelector'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -109,7 +110,6 @@ export default {
       focusOnInput: false,
       dropdownVisible: false,
       loading: false,
-      language: DEFAULT_LANG,
     }
   },
 
@@ -117,15 +117,15 @@ export default {
     buttonDisabled() {
       return this.valueInternal.length < 3;
     },
+
+    ...mapGetters([
+      'language',
+    ]),
   },
 
   watch: {
     options(to) {
       if (to.length) { this.showDropdown() }
-    },
-
-    language(to) {
-      this.$emit('select:lang', to);
     },
   },
 
@@ -221,10 +221,6 @@ export default {
       this.focusOnInput = false;
       var idx = typeof this.currentOptionIndex !== 'undefined' ? this.currentOptionIndex : 0;
       this.currentOptionIndex = (idx - 1 + this.options.length) % this.options.length;
-    },
-
-    langSelectHandler(lang) {
-      this.language = lang;
     },
   },
 }
