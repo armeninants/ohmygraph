@@ -60,5 +60,5 @@ npm run start
 `npm run update` is intended for production only, since it will reset all your local changes.
 
 ## License
-
-This project is licensed under the Apache License 2.0 - see the [LICENSE](https://raw.githubusercontent.com/armeninants/ohmygraph/master/LICENSE) file for details.
+OhMyGraph Semantic Browser is written by [Armen Inants](http://armen.inants.com).
+The project is licensed under the Apache License 2.0 - see the [LICENSE](https://raw.githubusercontent.com/armeninants/ohmygraph/master/LICENSE) file for details.
