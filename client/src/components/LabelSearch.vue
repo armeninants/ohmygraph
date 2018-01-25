@@ -16,8 +16,6 @@
         @keydown.enter="fetch"
       >
 
-      <language-selector></language-selector>
-
       <span class="input-group-btn">
         <button
           type="button"
@@ -65,14 +63,9 @@
  */
 import { DEFAULT_SPARQL_ENDPOINT } from '@/components/settings.js'
 import { focus } from 'vue-focus'
-import LanguageSelector from '@/components/LanguageSelector'
 import { mapGetters } from 'vuex'
 
 export default {
-  components: {
-    LanguageSelector,
-  },
-
   props: {
     endpoint: {
       type: String,
@@ -164,13 +157,9 @@ export default {
         .done(resp => this.processResponse(resp))
     },
 
-    doubleEscapeRegExp(str) {
-      return str.replace(/[\"\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\\\$&");
-    },
-
     labelSearchSparql(keyword) {
       const keywordEscaped = this.doubleEscapeRegExp(keyword);
-      const langFilter = this.language ? `lang(?l) = "${this.language}" && ` : '';
+      const langFilter = this.language !== '*' ? `lang(?l) = "${this.language}" && ` : '';
       return `SELECT ?r ?l
         WHERE {
           ?r rdfs:label ?l .

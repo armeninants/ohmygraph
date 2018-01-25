@@ -1,24 +1,19 @@
 <template>
   <ul>
     <li>
-      <a href="#" @click.prevent="fbShare" class="my-share my-share-facebook" target="_blank"><i class="fa fa-lg fa-facebook" aria-hidden="true"></i></a>
+      <a href="#" @click.prevent="fbShare" class="my-share my-share-facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
     </li>
     <li>
-      <a href="#" @click.prevent="twitterShare" class="my-share my-share-twitter" target="_blank"><i class="fa fa-lg fa-twitter" aria-hidden="true"></i></a>
+      <a href="#" @click.prevent="twitterShare" class="my-share my-share-twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
     </li>
     <li>
-      <a href="#" @click.prevent="linkedinShare" class="my-share my-share-linkedin" target="_blank"><i class="fa fa-lg fa-linkedin" aria-hidden="true"></i></a>
+      <a href="#" @click.prevent="linkedinShare" class="my-share my-share-linkedin" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
     </li>
     <li>
-      <a href="#" @click.prevent="googleShare" class="my-share my-share-google-plus" target="_blank"><i class="fa fa-lg fa-google-plus" aria-hidden="true"></i></a>
+      <a href="#" @click.prevent="googleShare" class="my-share my-share-google-plus" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
     </li>
     <li>
-      <a :href="mailShareLink" class="my-share my-share-mail" target="_blank"><i class="fa fa-lg fa-envelope" aria-hidden="true"></i></a>
-    </li>
-    <li>
-      <a class="my-share my-share-github" href="https://github.com/armeninants/ohmygraph" target="_blank" title="GitHub">
-        <i class="fa fa-lg fa-github" aria-hidden="true"></i>
-      </a>
+      <a :href="mailShareLink" class="my-share my-share-mail" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
     </li>
   </ul>
 </template>
@@ -88,14 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a, a:link, a:active, a:focus, a:hover {
-  color: #777;
-  background: none !important;
-}
-
-.my-share {
-  float: left;
-}
+@import "../styles/variables";
 
 .my-share-facebook:hover {
   color: #3B5998 !important;

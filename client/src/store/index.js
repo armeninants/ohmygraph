@@ -19,7 +19,8 @@ export default new Vuex.Store({
   actions: {
     initState({ commit }) {
       let lang = Vue.ls.get('omg-lang');
-      if (lang === null) { lang = DEFAULT_LANG; }
+      if (lang === null) { lang = navigator.language; }
+      if (!lang) { lang = DEFAULT_LANG; }
 
       commit('SET_LANG', lang);
     },

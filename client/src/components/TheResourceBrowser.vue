@@ -152,7 +152,7 @@ export default {
     },
 
     language(to) {
-      this.fetchQuery();
+      this.fetchIfApplicable();
     },
   },
 
@@ -164,7 +164,10 @@ export default {
     processUrlQuery(query) {
       this.endpoint = query.e || DEFAULT_SPARQL_ENDPOINT;
       this.resource = query.r;
+      this.fetchIfApplicable();
+    },
 
+    fetchIfApplicable() {
       if (this.endpoint && this.resource) {
         this.fetchQuery();
       } else {
@@ -191,7 +194,7 @@ export default {
     },
 
     getSparql(resource) {
-      const langFilter = this.language ? ` && (lang(?o) = '' || LANGMATCHES(lang(?o), '${this.language}'))` : '';
+      const langFilter = this.language !== '*' ? ` && (lang(?o) = '' || LANGMATCHES(lang(?o), '${this.language}'))` : '';
       return `SELECT DISTINCT ?s ?p ?o WHERE {
         {
           SELECT ?p ?o WHERE {

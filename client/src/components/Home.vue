@@ -1,15 +1,14 @@
 <template>
   <div class="container-fluid my-home-page">
-    <div class="my-home-nav">
-      <social-buttons class="nav nav-pills my-home-topnav"></social-buttons>
-    </div>
+    <nav class="my-home-topnav">
+      <a class="my-share-github" href="https://github.com/armeninants/ohmygraph" target="_blank" title="Fork me on GitHub">
+        <i class="fa fa-code-fork fa-rotate-90" aria-hidden="true"></i>
+      </a>
+    </nav>
     <div class="my-home-content">
       <div class="my-logo-container">
         <img src="/static/images/logo.png" :alt="SITE_NAME" class="my-logo">
       </div>
-<!--       <div class="my-motto">
-        A SPARQL client and RDF browser.
-      </div> -->
       <ul class="nav nav-pills my-nav-central">
         <li role="presentation"><router-link :to="{ name: 'resource-browser' }">RDF browser</router-link></li>
         <li role="presentation"><router-link :to="{ name: 'query-browser' }">SPARQL client</router-link></li>
@@ -47,20 +46,15 @@ export default {
 @import "../styles/variables";
 
 .my-home-topnav {
-  float: right;
-  margin-right: -5px;
-  margin-top: 10px;
 }
 
 .my-home-content {
   margin-top: 13%;
   margin-top: 13vh;
   text-align: center;
-
 }
 
 .my-logo-container {
-  // margin-bottom: 25px;
 }
 
 @media (max-width: $screen-xs-min - 1) {
@@ -91,18 +85,6 @@ export default {
   }
 }
 
-.my-motto {
-  color: $text-color;
-  font-size: 18px;
-  font-weight: 300;
-
-  .my-m1, .my-m2, .my-m3 {
-    // color: black;
-    text-decoration: underline;
-    // font-weight: bold;
-  }
-}
-
 .my-screencast{
   margin-top: 7%;
   margin-top: 7vh;
@@ -112,5 +94,11 @@ export default {
     max-width: 90%;
     max-width: 90vw;
   }
+}
+
+.my-share-github {
+  font-size: $font-size-h2;
+  float: right;
+  padding: 10px;
 }
 </style>

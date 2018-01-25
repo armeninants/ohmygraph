@@ -7,3 +7,24 @@ html {
 body {
   height: 100%;
 }
+
+
+nav, footer {
+  a, a:link, a:active, a:focus, a:hover {
+    background: none !important;
+  }
+}
+nav {
+  a, a:link, a:active, a:focus, a:hover {
+    color: $gray !important;
+    text-decoration: none !important;
+  }
+  a.active {
+    color: #000 !important;
+  }
+}
+footer {
+  a, a:link, a:active, a:focus, a:hover {
+    color: $gray-light !important;
+  }
+}

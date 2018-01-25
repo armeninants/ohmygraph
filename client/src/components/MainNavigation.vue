@@ -18,7 +18,13 @@
           <li><router-link :to="{ name: 'resource-browser' }">browse</router-link></li>
           <li><router-link :to="{ name: 'query-browser' }">query</router-link></li>
         </ul>
-        <social-buttons class="nav navbar-nav navbar-right"></social-buttons>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <div class="my-lang-select-container">
+              <language-selector></language-selector>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -30,11 +36,11 @@
  * @vue
  * @author Armen Inants <armen@inants.com>
  */
-import SocialButtons from '@/components/SocialButtons'
+import LanguageSelector from '@/components/LanguageSelector'
 
 export default {
   components: {
-    SocialButtons,
+    LanguageSelector,
   },
 
   data() {
@@ -52,6 +58,7 @@ export default {
   box-shadow: 0 0px 1px #888; 
   border: none;
   background: url('../assets/img-noise.png') 0 0 repeat;
+  font-size: 1.125rem;
 }
 
 .navbar-collapse.in, .navbar-collapse.collapsing {
@@ -70,14 +77,9 @@ $logo-padding-top: 7px;
 
 .my-nav-main {
   font-weight: 700;
-  font-size: 18px;
+}
 
-  a {
-    color: gray;
-
-    &.active {
-      color:  #000;
-    }
-  }
+.my-lang-select-container {
+  padding: ($navbar-height - $input-height-base)/2 $navbar-padding-horizontal;
 }
 </style>
