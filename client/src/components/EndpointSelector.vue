@@ -75,6 +75,10 @@ export default {
   },
 
   watch: {
+    sparqlEndpoint(to) {
+      this.valueInternal = to;
+    },
+
     valueInternal(to) {
       this.setSparqlEndpoint(this.valueInternal);
     },

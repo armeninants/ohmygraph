@@ -162,7 +162,9 @@ export default {
       if (!query.e) {
         this.$router.replace({
           name: 'resource-browser',
-          query: this.getNewQuery({ e: query.e || DEFAULT_SPARQL_ENDPOINT }),
+          query: this.getNewQuery({
+            e: query.e || this.$ls.get('omg-sparql-endpoint') || DEFAULT_SPARQL_ENDPOINT,
+          }),
         });
       }
 

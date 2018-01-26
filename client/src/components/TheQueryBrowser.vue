@@ -121,6 +121,7 @@ export default {
 
     '$route'(to) {
       this.processUrlQuery(to.query);
+      this.fetchIfApplicable();
     },
 
     sparqlQuery(to) {
@@ -146,7 +147,10 @@ export default {
       if (!query.e || !query.q) {
         this.$router.replace({
           name: 'query-browser',
-          query: this.getNewQuery({ e: query.e || DEFAULT_SPARQL_ENDPOINT, q: query.q || DEFAULT_SPARQL_QUERY }),
+          query: this.getNewQuery({
+            e: query.e || this.$ls.get('omg-sparql-endpoint') || DEFAULT_SPARQL_ENDPOINT,
+            q: query.q || this.$ls.get('omg-sparql-query') || DEFAULT_SPARQL_QUERY,
+          }),
         });
       }
 

@@ -39,9 +39,6 @@ export default new Vuex.Store({
   actions: {
     initState({ commit }) {
       commit('SET_LANG', Vue.ls.get('omg-lang') || navigator.language.split('-')[0].toLowerCase());
-      commit('SET_RESOURCE', Vue.ls.get('omg-resource'));
-      commit('SET_SPARQL_QUERY', Vue.ls.get('omg-sparql-query'));
-      commit('SET_SPARQL_ENDPOINT', Vue.ls.get('omg-sparql-endpoint'));
     },
 
     setLanguage({ commit, state }, lang) {
