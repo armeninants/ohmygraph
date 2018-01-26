@@ -149,7 +149,7 @@ export default {
           name: 'query-browser',
           query: this.getNewQuery({
             e: query.e || this.$ls.get('omg-sparql-endpoint') || DEFAULT_SPARQL_ENDPOINT,
-            q: query.q || this.$ls.get('omg-sparql-query') || DEFAULT_SPARQL_QUERY,
+            q: query.q || DEFAULT_SPARQL_QUERY,
           }),
         });
       }

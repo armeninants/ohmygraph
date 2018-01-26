@@ -14,7 +14,7 @@
     </p>
     <p>
       Want to become a contributor?
-      Fork the project, improve the code or add new features, and share!
+      Fork the project, improve the code or add new features, and send a pull request.
     </p>
     </p>
     <p>
