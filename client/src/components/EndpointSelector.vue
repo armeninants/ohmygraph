@@ -9,7 +9,7 @@
         autocomplete="off"
         v-model="valueInternal"
         v-focus="focusOnInput"
-        :placeholder="placeholder"
+        placeholder="SPARQL endpoint"
         @focus="focusOnInputHandler"
         @keydown.up="upHandler"
         @keydown.esc="hideDropdown"
@@ -24,7 +24,7 @@
       @keydown.down="downHandler"
       @keydown.up="upHandler"
     >
-      <li v-for="(item, i) in endpoints" :key="endpoints[i][keyToken]">
+      <li v-for="(item, i) in endpoints" :key="item.url">
         <a
           href="#"
           tabindex="0"
@@ -35,13 +35,14 @@
           @focus="focusOnItemHandler(i)"
           v-focus="!focusOnInput && dropdownVisible && currentOptionIndex === i"
         >
-          <span class="my-endpoint-selector-label">{{endpoints[i][labelToken]}}</span>
-          <span :class="['my-endpoint-selector-key', {parentheses: endpoints[i][labelToken] }]">{{endpoints[i][keyToken]}}</span>
+          <span class="my-endpoint-selector-label">{{item.name}}</span>
+          <span :class="['my-endpoint-selector-key', {parentheses: item.name }]">{{item.url}}</span>
         </a>
       </li>
     </ul>
   </div>  
 </template>
+
 
 <script>
 /**
@@ -50,31 +51,10 @@
  */
 import ENDPOINTS from '@/scripts/endpoints.json'
 import { focus } from 'vue-focus'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'endpoint-selector',
-
-  props: {
-    keyToken: {
-      type: String,
-      default: 'id',
-    },
-
-    labelToken: {
-      type: String,
-      default: 'label',
-    },
-
-    model: {
-      type: String,
-      default: '',
-    },
-
-    placeholder: {
-      type: String,
-      default: '',
-    },
-  },
 
   directives: { focus },
 
@@ -88,18 +68,20 @@ export default {
     }
   },
 
-  watch: {
-    model(val) {
-      this.valueInternal = val;
-    },
+  computed: {
+    ...mapGetters([
+      'sparqlEndpoint',
+    ]),
+  },
 
-    valueInternal(val) {
-      this.$emit('update:model', val);
+  watch: {
+    valueInternal(to) {
+      this.setSparqlEndpoint(this.valueInternal);
     },
   },
 
   created() {
-    this.valueInternal = this.model;
+    this.valueInternal = this.sparqlEndpoint;
   },
 
   mounted() {
@@ -140,7 +122,8 @@ export default {
     },
 
     itemSelectHandler(index) {
-      this.valueInternal = this.endpoints[index][this.keyToken];
+      this.valueInternal = this.endpoints[index].url;
+      this.setSparqlEndpoint(this.valueInternal);
       this.focusOnInput = false;
       this.hideDropdown();
     },
@@ -160,9 +143,14 @@ export default {
       var idx = typeof this.currentOptionIndex !== 'undefined' ? this.currentOptionIndex : 0;
       this.currentOptionIndex = (idx - 1 + this.endpoints.length) % this.endpoints.length;
     },
+
+    ...mapActions([
+      'setSparqlEndpoint',
+    ]),
   },
 }
 </script>
+
 
 <style lang="scss" scoped>
 .my-endpoint-selector-wrapper {

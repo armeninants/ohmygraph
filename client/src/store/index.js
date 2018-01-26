@@ -6,33 +6,84 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
+
   state: {
-    lang: '',
+    language: '',
+    resource: '',
+    sparqlQuery: '',
+    sparqlEndpoint: '',
   },
+
   mutations: {
     SET_LANG(state, lang) {
-      state.lang = lang;
-      Vue.ls.set('omg-lang', lang);
+      state.language = lang;
+      Vue.ls.set('omg-lang', lang || '');
+    },
+
+    SET_SPARQL_ENDPOINT(state, endpoint) {
+      state.sparqlEndpoint = endpoint;
+      Vue.ls.set('omg-sparql-endpoint', endpoint || '');
+    },
+
+    SET_SPARQL_QUERY(state, sparqlQuery) {
+      state.sparqlQuery = sparqlQuery;
+      Vue.ls.set('omg-sparql-query', sparqlQuery || '');
+    },
+
+    SET_RESOURCE(state, resource) {
+      state.resource = resource;
+      Vue.ls.set('omg-resource', resource || '');
     },
   },
 
   actions: {
     initState({ commit }) {
-      let lang = Vue.ls.get('omg-lang');
-      if (lang === null) { lang = navigator.language; }
-      if (!lang) { lang = DEFAULT_LANG; }
-
-      commit('SET_LANG', lang);
+      commit('SET_LANG', Vue.ls.get('omg-lang') || navigator.language.split('-')[0].toLowerCase());
+      commit('SET_RESOURCE', Vue.ls.get('omg-resource'));
+      commit('SET_SPARQL_QUERY', Vue.ls.get('omg-sparql-query'));
+      commit('SET_SPARQL_ENDPOINT', Vue.ls.get('omg-sparql-endpoint'));
     },
 
-    setLanguage({ commit }, lang) {
-      commit('SET_LANG', lang);
+    setLanguage({ commit, state }, lang) {
+      if (state.language != lang) {
+        commit('SET_LANG', lang);
+      }
+    },
+
+    setSparqlEndpoint({ commit, state }, endpoint) {
+      if (state.sparqlEndpoint != endpoint) {
+        commit('SET_SPARQL_ENDPOINT', endpoint);
+      }
+    },
+
+    setSparqlQuery({ commit, state }, sparqlQuery) {
+      if (state.sparqlQuery != sparqlQuery) {
+        commit('SET_SPARQL_QUERY', sparqlQuery);
+      }
+    },
+
+    setResource({ commit, state }, resource) {
+      if (state.resource != resource) {
+        commit('SET_RESOURCE', resource);
+      }
     },
   },
 
   getters: {
     language: state => {
-      return state.lang;
+      return state.language || DEFAULT_LANG;
+    },
+
+    sparqlEndpoint: state => {
+      return state.sparqlEndpoint;
+    },
+
+    sparqlQuery: state => {
+      return state.sparqlQuery;
+    },
+
+    resource: state => {
+      return state.resource;
     },
   },
 });

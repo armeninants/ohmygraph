@@ -175,8 +175,7 @@ export default {
       this.currentOptionIndex = index;
     },
 
-    getLangObj(lang_) {
-      const lang = lang_.split('-')[0].toLowerCase();
+    getLangObj(lang) {
       for (var i = 0; i < this.languages.length; i++) {
         if (lang === this.languages[i][1]) {
           return this.languages[i];
@@ -241,6 +240,7 @@ export default {
   background: rgba(255, 255, 255, 0.7);
   border: none;
   box-shadow: 1px 1px 0px 0px #ccc inset;
+  border-radius: $input-height-base/2;
   opacity: .5;
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;

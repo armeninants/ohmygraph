@@ -4,20 +4,12 @@
       <div class="row my-resource-interface">
         <div class="col-sm-6">
           <div class="form-group">
-            <label-search
-              :endpoint="endpoint"
-              @selected="resourceSelectHandler"
-            ></label-search>
+            <label-search></label-search>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <endpoint-selector
-              :model.sync="endpoint"
-              key-token="url"
-              label-token="name"
-              placeholder="SPARQL endpoint"
-            ></endpoint-selector>
+            <endpoint-selector></endpoint-selector>
           </div>
         </div>
       </div>
@@ -32,7 +24,6 @@
         <span class="prefix">Resource:</span>
         <rdf-resource
           :model="{type: 'uri', value: resource}"
-          :endpoint="endpoint"
         ></rdf-resource>
       </div>
       <div class="table-responsive" v-if="showResults">
@@ -51,7 +42,6 @@
               <td>
                 <rdf-resource
                   :model="{type: 'uri', value: entry[0]}"
-                  :endpoint="endpoint"
                 ></rdf-resource>
               </td>
               <td>
@@ -62,7 +52,6 @@
                   >
                     <rdf-resource
                       :model="obj"
-                      :endpoint="endpoint"
                     ></rdf-resource>
                   </li>
                 </ul>
@@ -76,7 +65,6 @@
                 is
                 <rdf-resource
                   :model="{'type': 'uri', value: entry[0]}"
-                  :endpoint="endpoint"
                 ></rdf-resource>
                 of
               </td>
@@ -88,7 +76,6 @@
                   >
                     <rdf-resource
                       :model="obj"
-                      :endpoint="endpoint"
                     ></rdf-resource>
                   </li>
                 </ul>
@@ -114,7 +101,7 @@ import RdfResource from '@/components/RdfResource'
 import EndpointSelector from '@/components/EndpointSelector'
 import LanguageSelector from '@/components/LanguageSelector'
 import { DEFAULT_SPARQL_ENDPOINT } from '@/components/settings.js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -127,8 +114,6 @@ export default {
 
   data() {
     return {
-      endpoint: '',
-      resource: '',
       label: '',
       subjectOf: [],
       objectOf: [],
@@ -143,32 +128,50 @@ export default {
 
     ...mapGetters([
       'language',
+      'resource',
+      'sparqlEndpoint',
     ]),
   },
 
   watch: {
-    '$route': function(to) {
+    '$route'(to) {
       this.processUrlQuery(to.query);
+      this.fetchIfApplicable();
     },
 
     language(to) {
       this.fetchIfApplicable();
     },
+
+    resource(to) {
+      this.$router.push({
+        name: 'resource-browser',
+        // query: this.getNewQuery({ r: to, e: this.sparqlEndpoint }),
+        query: { r: to, e: this.sparqlEndpoint },
+      });
+    },
   },
 
   created() {
     this.processUrlQuery(this.$route.query);
+    this.fetchIfApplicable();
   },
 
   methods: {
     processUrlQuery(query) {
-      this.endpoint = query.e || DEFAULT_SPARQL_ENDPOINT;
-      this.resource = query.r;
-      this.fetchIfApplicable();
+      if (!query.e) {
+        this.$router.replace({
+          name: 'resource-browser',
+          query: this.getNewQuery({ e: query.e || DEFAULT_SPARQL_ENDPOINT }),
+        });
+      }
+
+      this.setResource(this.$route.query.r);
+      this.setSparqlEndpoint(this.$route.query.e);
     },
 
     fetchIfApplicable() {
-      if (this.endpoint && this.resource) {
+      if (this.$route.query.r && this.$route.query.e) {
         this.fetchQuery();
       } else {
         this.subjectOf = [];
@@ -180,7 +183,7 @@ export default {
       this.isLoading = true;
 
       const url = '/proxy?endpoint=' +
-        encodeURIComponent(this.endpoint) +
+        encodeURIComponent(this.sparqlEndpoint) +
         '&sparql=' +
         encodeURIComponent(this.getSparql(this.resource));
 
@@ -247,12 +250,10 @@ export default {
       }
     },
 
-    resourceSelectHandler(resource) {
-      this.$router.push({ 
-        name: 'resource-browser',
-        query: this.getNewQuery({ r: resource, e: this.endpoint })
-      });
-    },
+    ...mapActions([
+      'setResource',
+      'setSparqlEndpoint',
+    ]),
   },
 }
 </script>

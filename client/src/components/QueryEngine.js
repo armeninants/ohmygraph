@@ -7,13 +7,11 @@ const QueryEngine = {
 
     Vue.prototype.$sparqlGet = function(obj) {
       const url = `/proxy?endpoint=${encodeURIComponent(obj.endpoint)}&sparql=${encodeURIComponent(obj.sparql)}`
-      this.$emit('busy')
 
       return jQuery.ajax({
         dataType: 'json',
         url: url,
       })
-        .always(() => this.$emit('idle'))
         .fail((xhr, textStatus, errorThrown) => jQuery.notify(errorThrown, 'error'))
     }
 

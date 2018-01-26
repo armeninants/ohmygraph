@@ -8,7 +8,7 @@ import TheLayout from '@/components/TheLayout'
 import TheQueryBrowser from '@/components/TheQueryBrowser'
 import TheResourceBrowser from '@/components/TheResourceBrowser'
 
-import { TITLE_TEMPLATE } from '@/components/settings.js' 
+import { TITLE_TEMPLATE } from '@/components/settings.js'
 
 const router = new Router({
   linkActiveClass: 'active',

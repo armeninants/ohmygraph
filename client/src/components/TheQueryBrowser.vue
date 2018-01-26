@@ -1,69 +1,67 @@
 <template>
-  <div class="container-fluid my-query-browser">
-    <div class="my-interface-picker">
-      <ul class="nav nav-tabs">
-        <li role="presentation" :class="{active: queryInterfaceId === 'sparql'}">
-          <a href="#" @click.prevent="switchToInterface('sparql')">
-            query in SPARQL
-          </a>
-        </li>
-        <li role="presentation" class="disabled">
-          <a href="#" @click.prevent="" title="Will become available in future releases">
-            query in English
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div
-      v-if="!!currentInterface"
-      class="my-interface-container"
-    >
-      <component
-        :is="currentInterface"
-        @dispatchQuery="queryDispatchedHandler"
-        ref="interface"
-      >
-        <button
-          @click="runQueryHandler"
-          :class="['btn btn-primary my-run-button', { disabled: viewerBusy }]"
-        >
-          <i :class="['fa fa-fw', viewerBusy ? 'fa-spinner fa-spin' : 'fa-play']" aria-hidden="true"></i>
-          {{viewerBusy ? 'abort': 'run'}}
-        </button>
-      </component>
-    </div>
-    <div class="my-viewer-picker">
-      <span class="form-control-static my-show-label">Show results as a</span>
+  <div class="my-query-browser">
 
-      <div class="btn-group">
-        <button
-          @click="setQueryViewer('table')"
-          :class="['btn btn-default', { active: queryViewerId === 'table' }]"
-        >
-          <i class="fa fa-table" aria-hidden="true"></i> table
-        </button>
-        <button
-          disabled
-          title="Will become available in future releases"
-          @click="setQueryViewer('rdfgraph')"
-          :class="['btn btn-default', { active: queryViewerId === 'rdfgraph' }]"
-        >
-          <i class="fa fa-share-alt fa-rotate-90" aria-hidden="true"></i> graph
-        </button>
+    <div class="container-fluid my-sparql-editor">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <endpoint-selector></endpoint-selector>
+          </div>
+        </div>
+        <div class="col-sm-6 form-inline">
+          <div class="form-group">
+            <div class="dropdown my-examples">
+              <button id="sparqlExamples" class="btn btn-default dropdown-toggle my-examples-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                sample queries
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="sparqlExamples">
+                <li v-for="(example, i) in examples" :key="i">
+                  <a href="#" @click.prevent="setExample(i)">{{ example.name }}</a>
+                </li>
+              </ul>
+            </div>
+            <button
+              @click="runQueryHandler"
+              :class="['btn btn-primary my-run-button', { disabled: viewerBusy }]"
+            >
+              <i :class="['fa fa-fw', viewerBusy ? 'fa-spinner fa-spin' : 'fa-play']" aria-hidden="true"></i>
+              {{viewerBusy ? 'abort': 'run'}}
+            </button>
+          </div>
+        </div>
       </div>
+      <div ref="editorContainer" class="my-sparql-editor-container"></div>
     </div>
+
     <div
       ref="viewerContainer"
-      :class="['my-viewer-container', { busy: viewerBusy }]"
+      :class="['container-fluid my-viewer-container', { busy: viewerBusy }]"
     >
-      <component
+      <div
+        class="my-table-view"
         ref="queryViewer"
         v-if="showViewer"
-        :is="currentViewer"
-        :query-object="queryObject"
-        @busy="viewerBusyHandler"
-        @idle="viewerIdleHandler"
-      ></component>
+      >
+        <div class="my-bool-resp" v-if="boolResp">{{response.boolean ? 'Yes' : 'No'}}</div>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" v-if="!boolResp && response.head">
+            <thead>
+              <tr><th v-for="header in response.head.vars">{{header}}</th></tr>
+            </thead>
+            <tbody>
+              <tr v-for="(row, i) in response.results.bindings">
+                <td v-for="(header, j) in response.head.vars" :key="(row[header] ? row[header].value : '') + '-' + i + '-' + j">
+                  <rdf-resource
+                    v-if="row[header]"
+                    :model="row[header]"
+                  ></rdf-resource>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -74,138 +72,171 @@
  * @vue
  * @author Armen Inants <armen@inants.com>
  */
-import TableView from '@/components/TableView'
-import SparqlEditor from '@/components/SparqlEditor'
-// import RdfGraphViewer from '@/components/RdfGraphViewer'
+
+import RdfResource from '@/components/RdfResource'
+import EndpointSelector from '@/components/EndpointSelector'
+import YASQE from 'yasgui-yasqe/dist/yasqe.bundled.min.js'
+import SPARQL_EXAMPLES from '@/scripts/sparql-examples.json'
+import { mapGetters, mapActions } from 'vuex'
+import { DEFAULT_SPARQL_ENDPOINT, DEFAULT_SPARQL_QUERY } from '@/components/settings.js'
 
 export default {
   components: {
-    TableView,
-    SparqlEditor,
-    // RdfGraphViewer,
+    RdfResource,
+    EndpointSelector,
   },
 
   data() {
     return {
-      QUERY_INTERFACES: {
-        sparql: 'SparqlEditor',
-      },
-      QUERY_VIEWERS: {
-        table: 'TableView',
-        // rdfgraph: 'RdfGraphViewer',
-      },
-      queryInterfaceId: '',
-      queryViewerId: '',
-      queryObject: {},
+      examples: SPARQL_EXAMPLES,
+      response: {},
       viewerBusy: false,
     }
   },
 
   computed: {
-    /**
-     * Get Query Interface Component by its ID.
-     *
-     * @return {mixed} Vue Component or undefined.
-     */
-    currentInterface() {
-      return this.QUERY_INTERFACES[this.queryInterfaceId];
-    },
-
-    /**
-     * Get Query Viewer Component by its ID.
-     *
-     * @return {mixed} Vue Component or undefined.
-     */
-    currentViewer() {
-      return this.QUERY_VIEWERS[this.queryViewerId];
+    boolResp() {
+      return this.response.hasOwnProperty('boolean');
     },
 
     showViewer() {
-      return Object.keys(this.queryObject).length > 0;
+      return Object.keys(this.response).length > 0;
     },
+
+    ...mapGetters([
+      'sparqlEndpoint',
+      'sparqlQuery',
+    ]),
   },
 
   watch: {
-    '$route': function(to) {
-      this.chooseActiveInterface(to.query);
+    viewerBusy(to) {
+      if (to === false) {
+        const offsetTarget = $(this.$refs.viewerContainer).offset().top;
+        if (window.scrollY > offsetTarget ) {
+          $('html, body').animate({ scrollTop: offsetTarget }, 'slow');
+        }
+      }
+    },
+
+    '$route'(to) {
+      this.processUrlQuery(to.query);
+    },
+
+    sparqlQuery(to) {
+      if (this.yasqe) {
+        this.yasqe.setValue(to);
+      }
+      this.fetchIfApplicable();
     },
   },
 
   created() {
-    this.chooseActiveInterface(this.$route.query);
+    this.processUrlQuery(this.$route.query);
   },
 
   mounted() {
+    this.yasqe = YASQE(this.$refs.editorContainer);
+    this.yasqe.setValue(this.sparqlQuery);
+    this.fetchIfApplicable();
   },
 
   methods: {
-    /**
-     * Chooses the active interface based on the interface ID coming from the URL query.
-     *
-     * @param {object} query - URL query.
-     */
-    chooseActiveInterface(query) {
-      // if (query.e && query.q) {
-      this.queryInterfaceId = 'sparql';
-      // }
-      this.queryViewerId = this.QUERY_VIEWERS.hasOwnProperty(query.v) ? query.v : 'table';
+    processUrlQuery(query) {
+      if (!query.e || !query.q) {
+        this.$router.replace({
+          name: 'query-browser',
+          query: this.getNewQuery({ e: query.e || DEFAULT_SPARQL_ENDPOINT, q: query.q || DEFAULT_SPARQL_QUERY }),
+        });
+      }
+
+      this.setSparqlQuery(this.$route.query.q);
+      this.setSparqlEndpoint(this.$route.query.e);
     },
 
     runQueryHandler() {
-      if (this.viewerBusy) {
-        this.$refs.queryViewer.$emit('abort');
+      if (this.viewerBusy && this.xhr && this.xhr.abort) {
+        this.xhr.abort();
       } else {
-        this.$refs.interface.$emit('requestForQuery');
+        this.setSparqlQuery(this.yasqe.getValue());
+        this.fetchQuery();
       }
     },
 
-    queryDispatchedHandler(queryObject) {
-      this.queryObject = queryObject;
+    fetchIfApplicable() {
+      if (this.$route.query.q && this.$route.query.e && this.$route.query.q !== DEFAULT_SPARQL_QUERY) {
+        this.fetchQuery();
+      }
     },
 
-    viewerBusyHandler() {
+    fetchQuery() {
       this.viewerBusy = true;
+      this.xhr = this.$sparqlGet({
+        sparql: this.sparqlQuery,
+        endpoint: this.sparqlEndpoint,
+      })
+        .always(() => this.viewerBusy = false)
+        .done(resp => this.processResp(resp))
+        .fail(resp => this.response = {})
     },
 
-    viewerIdleHandler() {
-      this.viewerBusy = false;
-      const offsetTarget = $(this.$refs.viewerContainer).offset().top;
-      if (window.scrollY > offsetTarget ) {
-        $('html, body').animate({ scrollTop: offsetTarget }, 'slow');
-      }
-    },
-
-    switchToInterface(interfaceId) {
-      this.queryInterfaceId = interfaceId;
-    },
-
-    setQueryViewer(viewerId) {
-      this.$router.replace({
-        query: this.getNewQuery({v: viewerId})
+    processResp(resp) {
+      this.response = resp;
+      this.$router.push({
+        name: 'query-browser',
+        query: { e: this.sparqlEndpoint, q: this.sparqlQuery },
       });
     },
+
+    setExample(index) {
+      this.yasqe.setValue(this.examples[index].sparql);
+    },
+
+    ...mapActions([
+      'setSparqlQuery',
+      'setSparqlEndpoint',
+    ]),
   },
 
 }
 </script>
 
 
-<style lang="scss" scoped>
-.my-viewer-picker {
-  margin-top: 25px;
-  margin-bottom: 15px;
+<style src="yasgui-yasqe/dist/yasqe.min.css"></style>
+
+<style lang="scss">
+.yasqe .CodeMirror-fullscreen {
+  z-index: 1010;
 }
 
-.my-interface-container {
+.yasqe_buttons {
+  display: none;
+}
+
+.yasqe .CodeMirror {
+  font-family: 'Source Code Pro', monospace;
+}
+</style>
+
+<style lang="scss" scoped>
+@import "../styles/variables";
+
+.my-sparql-editor {
+  margin-top: -$navbar-margin-bottom;
+  padding-top: $form-group-margin-bottom;
   padding: 15px;
+  background: url('../assets/img-noise2.png') 0 0 repeat;
 }
 
 .my-run-button {
   margin-right: 15px;
 }
 
-.my-viewer-container.busy {
-  opacity: 0.5;
+.my-viewer-container {
+  margin-top: 15px;
+  &.busy {
+    opacity: 0.5;
+  }
 }
 
 .my-show-label {
@@ -221,7 +252,19 @@ export default {
     text-shadow: 1px 1px 0px #e0e0e0;
   }
 }
-.my-interface-container {
-  background: url('../assets/img-noise2.png') 0 0 repeat;
+
+.my-examples {
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.my-table-view {
+  position: relative;
+}
+
+.my-bool-resp {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
 }
 </style>

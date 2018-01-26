@@ -12,6 +12,7 @@
  * @author Armen Inants <armen@inants.com>
  */
 import TheFooter from '@/components/TheFooter'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'app',
@@ -21,6 +22,7 @@ export default {
   },
 }
 </script>
+
 
 <style lang="scss">
 @import "./styles/variables";

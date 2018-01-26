@@ -36,7 +36,7 @@
     >
       <li
         v-for="(item, i) in options"
-        :key="i + '_' + options[i][keyToken]"
+        :key="i + '_' + item.id"
       >
         <a
           href="#"
@@ -48,8 +48,8 @@
           @focus="focusOnItemHandler(i)"
           v-focus="!focusOnInput && dropdownVisible && currentOptionIndex === i"
         >
-          <span class="my-option-label">{{options[i][labelToken]}}</span>
-          <span :class="['my-otion-key', {parentheses: options[i][labelToken] }]">{{options[i][keyToken]}}</span>
+          <span class="my-option-label">{{item.label}}</span>
+          <span :class="['my-otion-key', {parentheses: item.label }]">{{item.id}}</span>
         </a>
       </li>
     </ul>
@@ -61,38 +61,11 @@
  * @vue
  * @author Armen Inants <armen@inants.com>
  */
-import { DEFAULT_SPARQL_ENDPOINT } from '@/components/settings.js'
+
 import { focus } from 'vue-focus'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  props: {
-    endpoint: {
-      type: String,
-      default: DEFAULT_SPARQL_ENDPOINT,
-    },
-
-    keyToken: {
-      type: String,
-      default: 'id',
-    },
-
-    labelToken: {
-      type: String,
-      default: 'label',
-    },
-
-    model: {
-      type: String,
-      default: '',
-    },
-
-    placeholder: {
-      type: String,
-      default: '',
-    },
-  },
-
   directives: { focus },
 
   data() {
@@ -113,6 +86,7 @@ export default {
 
     ...mapGetters([
       'language',
+      'sparqlEndpoint',
     ]),
   },
 
@@ -137,7 +111,7 @@ export default {
 
   methods: {
     processResponse(resp) {
-      this.options = resp.results.bindings.map(row => ({ [this.keyToken]: row.r.value, [this.labelToken]: row.l.value }))
+      this.options = resp.results.bindings.map(row => ({ id: row.r.value, label: row.l.value }));
     },
 
     fetch() {
@@ -150,8 +124,8 @@ export default {
 
       this.loading = true;
       this.xhr = this.$sparqlGet({
-        endpoint: this.endpoint,
-        sparql: this.labelSearchSparql(this.valueInternal)
+        endpoint: this.sparqlEndpoint,
+        sparql: this.labelSearchSparql(this.valueInternal),
       })
         .always(() => this.loading = false)
         .done(resp => this.processResponse(resp))
@@ -159,11 +133,12 @@ export default {
 
     labelSearchSparql(keyword) {
       const keywordEscaped = this.doubleEscapeRegExp(keyword);
-      const langFilter = this.language !== '*' ? `lang(?l) = "${this.language}" && ` : '';
+      const langFilter = this.language !== '*' ? ` && (lang(?l) = '' || LANGMATCHES(lang(?l), '${this.language}'))` : '';
+
       return `SELECT ?r ?l
         WHERE {
           ?r rdfs:label ?l .
-          FILTER (${langFilter}regex(?l, "^${keywordEscaped}", "i"))
+          FILTER (regex(?l, "^${keywordEscaped}", "i")${langFilter})
         } LIMIT 100`;
     },
     showDropdown() {
@@ -190,8 +165,8 @@ export default {
     },
 
     itemSelectHandler(index) {
-      this.valueInternal = this.options[index][this.labelToken];
-      this.$emit('selected', this.options[index][this.keyToken]);
+      this.valueInternal = this.options[index].label;
+      this.setResource(this.options[index].id);
       this.focusOnInput = false;
       this.hideDropdown();
     },
@@ -211,6 +186,10 @@ export default {
       var idx = typeof this.currentOptionIndex !== 'undefined' ? this.currentOptionIndex : 0;
       this.currentOptionIndex = (idx - 1 + this.options.length) % this.options.length;
     },
+
+    ...mapActions([
+      'setResource',
+    ]),
   },
 }
 </script>

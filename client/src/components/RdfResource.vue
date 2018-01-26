@@ -40,16 +40,13 @@
 import { focus } from 'vue-focus'
 import PREFIXES from "@/scripts/prefixes.json"
 import { URI_LENGTH_MAX } from "@/components/settings.js"
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
     model: {
       type: Object,
       required: true,
-    },
-    endpoint: {
-      type: String,
-      default: '',
     },
   },
 
@@ -63,6 +60,7 @@ export default {
       postfix: '',
       color: '',
       dropdownViz: false,
+      endpoint: '',
     }
   },
 
@@ -70,6 +68,10 @@ export default {
     relOffset() {
       return this.getRelOffset();
     },
+
+    ...mapGetters([
+      'sparqlEndpoint',
+    ]),
   },
 
   watch: {
@@ -79,6 +81,7 @@ export default {
   },
 
   created() {
+    this.endpoint = this.sparqlEndpoint;
     this.processModel();
   },
 

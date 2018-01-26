@@ -4,6 +4,7 @@
 
 export const AJAX_TIMEOUT_MS = 30000
 export const DEFAULT_SPARQL_ENDPOINT = 'https://dbpedia.org/sparql'
+export const DEFAULT_SPARQL_QUERY = 'SELECT DISTINCT ?Concept WHERE {[] a ?Concept} LIMIT 100'
 export const TITLE_TEMPLATE = (str) => { return CONF.SITE_NAME + ' | ' + str }
 
 export const URI_LENGTH_MAX = 60
