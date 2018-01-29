@@ -77,8 +77,9 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title(to)
-  next()
+  document.title = to.meta.title(to);
+  // $('meta[property="og:title"]').attr('content', document.title);
+  next();
 })
 
 export default router
